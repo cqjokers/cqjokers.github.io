@@ -309,6 +309,153 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://cqjokers.top/2018/07/13/错误分析/JavaThreadDumpAnalysis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cqjokers">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/14009383?s=400&u=6d0fbe25db27f7e2ddd160c518252b33e80ebff4&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cqjoker's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/13/错误分析/JavaThreadDumpAnalysis/" itemprop="url">记录线上程序导致服务器CPU过高的问题排除过程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-13T17:36:30+08:00">
+                2018-07-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/错误分析/" itemprop="url" rel="index">
+                    <span itemprop="name">错误分析</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="故障描述"><a href="#故障描述" class="headerlink" title="故障描述"></a>故障描述</h2><p>昨天上午朋友告诉我之前我做的一个外包项目(抓取公共运输整合资讯流通服务平台上的数据)突然无法访问了，通过浏览器访问一直处于等待状态，于是我登录服务器查看CPU使用率发现，CPU占用达到80%以上，而java进程CPU占有率则是达到350%以上。</p>
+<h2 id="问题查找"><a href="#问题查找" class="headerlink" title="问题查找"></a>问题查找</h2><p>查看当前服务器CPU占有率最简单的方法就是通过top命令查看<img src="https://upload-images.jianshu.io/upload_images/13023122-5480faab09f208ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="">根据上图发现pid为27055的进程CPU占有率达到353.2%，于是通过<code>top -p 27055 -H</code>命令把该进程的所有线程都显示出来，然后发现几个占用CPU资源特别大的线程tid如下图所示：<img src="https://upload-images.jianshu.io/upload_images/13023122-8cd16dc2bf1d1e96.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="">根据上图所示发现有4个线程占用CPU非常高<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/07/13/错误分析/JavaThreadDumpAnalysis/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://cqjokers.top/2018/07/12/java/LinkedHashMap/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1132,7 +1279,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1143,7 +1290,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1154,7 +1301,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
