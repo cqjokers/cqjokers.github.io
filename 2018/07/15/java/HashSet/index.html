@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="dump,thread,Analysis," />
+  <meta name="keywords" content="set," />
 
 
 
@@ -81,23 +81,18 @@
 
 
 
-<meta name="description" content="故障描述昨天上午朋友告诉我之前我做的一个外包项目(抓取公共运输整合资讯流通服务平台上的数据)突然无法访问了，通过浏览器访问一直处于等待状态，于是我登录服务器查看CPU使用率发现，CPU占用达到80%以上，而java进程CPU占有率则是达到350%以上。 问题查找查看当前服务器CPU占有率最简单的方法就是通过top命令查看根据上图发现pid为27055的进程CPU占有率达到353.2%，于是通过to">
-<meta name="keywords" content="dump,thread,Analysis">
+<meta name="description" content="概述HashSet实现了Set接口，由哈希表（实际上是一个HashMap实例）支持。它不保证set 的迭代顺序；它并不保证随着时间的推移，秩序将保持不变。此类允许使用null元素,是一个不允许存储重复元素的集合 成员变量12private transient HashMap&amp;lt;E,Object&amp;gt; map;private static final Object PRESENT = new">
+<meta name="keywords" content="set">
 <meta property="og:type" content="article">
-<meta property="og:title" content="记录线上程序导致服务器CPU过高的问题排除过程">
-<meta property="og:url" content="http://cqjokers.top/2018/07/13/错误分析/JavaThreadDumpAnalysis/index.html">
+<meta property="og:title" content="HashSet原理分析">
+<meta property="og:url" content="http://cqjokers.top/2018/07/15/java/HashSet/index.html">
 <meta property="og:site_name" content="cqjoker&#39;s Blog">
-<meta property="og:description" content="故障描述昨天上午朋友告诉我之前我做的一个外包项目(抓取公共运输整合资讯流通服务平台上的数据)突然无法访问了，通过浏览器访问一直处于等待状态，于是我登录服务器查看CPU使用率发现，CPU占用达到80%以上，而java进程CPU占有率则是达到350%以上。 问题查找查看当前服务器CPU占有率最简单的方法就是通过top命令查看根据上图发现pid为27055的进程CPU占有率达到353.2%，于是通过to">
+<meta property="og:description" content="概述HashSet实现了Set接口，由哈希表（实际上是一个HashMap实例）支持。它不保证set 的迭代顺序；它并不保证随着时间的推移，秩序将保持不变。此类允许使用null元素,是一个不允许存储重复元素的集合 成员变量12private transient HashMap&amp;lt;E,Object&amp;gt; map;private static final Object PRESENT = new">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13023122-5480faab09f208ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13023122-8cd16dc2bf1d1e96.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13023122-90a35033582f4d69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13023122-c463bf338c18dc4e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-07-13T09:41:55.337Z">
+<meta property="og:updated_time" content="2018-07-16T03:00:13.603Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="记录线上程序导致服务器CPU过高的问题排除过程">
-<meta name="twitter:description" content="故障描述昨天上午朋友告诉我之前我做的一个外包项目(抓取公共运输整合资讯流通服务平台上的数据)突然无法访问了，通过浏览器访问一直处于等待状态，于是我登录服务器查看CPU使用率发现，CPU占用达到80%以上，而java进程CPU占有率则是达到350%以上。 问题查找查看当前服务器CPU占有率最简单的方法就是通过top命令查看根据上图发现pid为27055的进程CPU占有率达到353.2%，于是通过to">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/13023122-5480faab09f208ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="HashSet原理分析">
+<meta name="twitter:description" content="概述HashSet实现了Set接口，由哈希表（实际上是一个HashMap实例）支持。它不保证set 的迭代顺序；它并不保证随着时间的推移，秩序将保持不变。此类允许使用null元素,是一个不允许存储重复元素的集合 成员变量12private transient HashMap&amp;lt;E,Object&amp;gt; map;private static final Object PRESENT = new">
 
 
 
@@ -127,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://cqjokers.top/2018/07/13/错误分析/JavaThreadDumpAnalysis/"/>
+  <link rel="canonical" href="http://cqjokers.top/2018/07/15/java/HashSet/"/>
 
 
 
 
 
-  <title>记录线上程序导致服务器CPU过高的问题排除过程 | cqjoker's Blog</title>
+  <title>HashSet原理分析 | cqjoker's Blog</title>
   
 
 
@@ -314,7 +309,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://cqjokers.top/2018/07/13/错误分析/JavaThreadDumpAnalysis/">
+    <link itemprop="mainEntityOfPage" href="http://cqjokers.top/2018/07/15/java/HashSet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="cqjokers">
@@ -331,7 +326,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">记录线上程序导致服务器CPU过高的问题排除过程</h1>
+          <h1 class="post-title" itemprop="name headline">HashSet原理分析</h1>
         
 
         <div class="post-meta">
@@ -343,8 +338,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-13T17:36:30+08:00">
-                2018-07-13
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-15T14:59:20+08:00">
+                2018-07-15
               </time>
             
 
@@ -366,8 +361,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/错误分析/" itemprop="url" rel="index">
-                    <span itemprop="name">错误分析</span>
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
                   </a>
                 </span>
 
@@ -408,13 +403,20 @@
       
 
       
-        <h2 id="故障描述"><a href="#故障描述" class="headerlink" title="故障描述"></a>故障描述</h2><p>昨天上午朋友告诉我之前我做的一个外包项目(抓取公共运输整合资讯流通服务平台上的数据)突然无法访问了，通过浏览器访问一直处于等待状态，于是我登录服务器查看CPU使用率发现，CPU占用达到80%以上，而java进程CPU占有率则是达到350%以上。</p>
-<h2 id="问题查找"><a href="#问题查找" class="headerlink" title="问题查找"></a>问题查找</h2><p>查看当前服务器CPU占有率最简单的方法就是通过top命令查看<img src="https://upload-images.jianshu.io/upload_images/13023122-5480faab09f208ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="">根据上图发现pid为27055的进程CPU占有率达到353.2%，于是通过<code>top -p 27055 -H</code>命令把该进程的所有线程都显示出来，然后发现几个占用CPU资源特别大的线程tid如下图所示：<img src="https://upload-images.jianshu.io/upload_images/13023122-8cd16dc2bf1d1e96.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="">根据上图所示发现有4个线程占用CPU非常高<br><a id="more"></a></p>
-<h2 id="分析线程堆栈"><a href="#分析线程堆栈" class="headerlink" title="分析线程堆栈"></a>分析线程堆栈</h2><p>首先通过<code>jstack 27055 &gt; java-stack.log</code>命令将堆栈信息导出到日志文件里，然后将之前看到的线程ID转为16进制在日志文件里进行查找发现这4个线程是垃圾回收线程，分析图如下图所示：<br><img src="https://upload-images.jianshu.io/upload_images/13023122-90a35033582f4d69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="">也可以将堆栈日志上传这上网上进行分析<a href="http://heaphero.io" target="_blank" rel="noopener">Fast thread</a>如果日志文件太大最好还是使用MAT工具进行分析。<br>由于之前写的几个并没有出现这样的问题，是最近新添的几个抓取网址才导致出现CPU飙高，通过fastThread进行分析发现有几个线程执行的代码是一样的，但是按照正常流程该段代码只会出现在一个线程，如下图所示：<img src="https://upload-images.jianshu.io/upload_images/13023122-c463bf338c18dc4e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="">上图标红的这几个线程都是执行最近新添的代码，并且发现都卡在了<code>startHandshake</code>这里，在网上搜索发现也有其它小伙伴遇见这个问题。由于抓取的数据量非常大所以执行的时间会比较久再加上自己手贱在定时执行线程中又包了一个子线程，所以导致了上面出现的几个线程同时执行同一段代码，通过浏览器不用https访问发现一样可以取到数据，然后果断的将后台上的网址换掉。通过优化代码和更换网址后从昨天到今天暂时未发现CPU占用较高的问题</p>
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>HashSet实现了Set接口，由哈希表（实际上是一个HashMap实例）支持。它不保证set 的迭代顺序；它并不保证随着时间的推移，秩序将保持不变。此类允许使用null元素,是一个不允许存储重复元素的集合</p>
+<h2 id="成员变量"><a href="#成员变量" class="headerlink" title="成员变量"></a>成员变量</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">transient</span> HashMap&lt;E,Object&gt; map;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object PRESENT = <span class="keyword">new</span> Object();</span><br></pre></td></tr></table></figure>
+<ul>
+<li>map:用于存放数据</li>
+<li>PRESENT: 所有存入的map数据的value值<a id="more"></a>
+<h2 id="构造器"><a href="#构造器" class="headerlink" title="构造器"></a>构造器</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">HashSet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="title">HashSet</span><span class="params">(Collection&lt;? extends E&gt; c)</span> </span>&#123;</span><br><span class="line">     map = <span class="keyword">new</span> HashMap&lt;&gt;(Math.max((<span class="keyword">int</span>) (c.size()/.<span class="number">75f</span>) + <span class="number">1</span>, <span class="number">16</span>));</span><br><span class="line">     addAll(c);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="title">HashSet</span><span class="params">(<span class="keyword">int</span> initialCapacity, <span class="keyword">float</span> loadFactor)</span> </span>&#123;</span><br><span class="line">     map = <span class="keyword">new</span> HashMap&lt;&gt;(initialCapacity, loadFactor);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="title">HashSet</span><span class="params">(<span class="keyword">int</span> initialCapacity)</span> </span>&#123;</span><br><span class="line">     map = <span class="keyword">new</span> HashMap&lt;&gt;(initialCapacity);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> HashSet(<span class="keyword">int</span> initialCapacity, <span class="keyword">float</span> loadFactor, <span class="keyword">boolean</span> dummy) &#123;</span><br><span class="line">     map = <span class="keyword">new</span> LinkedHashMap&lt;&gt;(initialCapacity, loadFactor);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>通过构造器可以发现使用的是HashMap来初始化map，但其中有一个包访问级别的构造器，使用的是<code>LinkedHashMap</code>，其主要是对LinkedHashSet的支持。</p>
+<h2 id="add方法"><a href="#add方法" class="headerlink" title="add方法"></a>add方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> map.put(e, PRESENT)==<span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过add方法可以发现，存入的数据其实是作为了map的键，而真正的值是<code>PRESENT</code>,所以这就保证了存入的数据是没有重复的</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
-<li>通过这次问题发现，线程一定不要乱用，凡是用到多线程的地方一定要谨慎思考</li>
-<li>对于分析问题也会有不少的收获，一些基本的JVM命令需要去了解并在发现问题时知道怎么用。</li>
-<li>对于java程序而言，CPU占用过高大多数是因为内存不够，而GC又回收不了导致的</li>
+<li>由于HashSet是借助于HashMap来实现的，所以HashMap会出现的问题,HashSet一样会出现</li>
+<li>在用HashSet保存对象的时候，一定要正确的重写其equals和hashCode方法，以保证放入的对象的唯一性</li>
 </ul>
 
       
@@ -433,11 +435,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/dump/" rel="tag"># dump</a>
-          
-            <a href="/tags/thread/" rel="tag"># thread</a>
-          
-            <a href="/tags/Analysis/" rel="tag"># Analysis</a>
+            <a href="/tags/set/" rel="tag"># set</a>
           
         </div>
       
@@ -450,8 +448,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/12/java/LinkedHashMap/" rel="next" title="LinkedHashMap底层分析">
-                <i class="fa fa-chevron-left"></i> LinkedHashMap底层分析
+              <a href="/2018/07/14/java/Timer/" rel="next" title="Timer底层分析">
+                <i class="fa fa-chevron-left"></i> Timer底层分析
               </a>
             
           </div>
@@ -459,10 +457,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/14/java/Timer/" rel="prev" title="Timer底层分析">
-                Timer底层分析 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -615,7 +609,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#故障描述"><span class="nav-number">1.</span> <span class="nav-text">故障描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题查找"><span class="nav-number">2.</span> <span class="nav-text">问题查找</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析线程堆栈"><span class="nav-number">3.</span> <span class="nav-text">分析线程堆栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#成员变量"><span class="nav-number">2.</span> <span class="nav-text">成员变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造器"><span class="nav-number">3.</span> <span class="nav-text">构造器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#add方法"><span class="nav-number">4.</span> <span class="nav-text">add方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
