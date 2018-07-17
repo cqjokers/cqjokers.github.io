@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[LruCache的实现]]></title>
+    <url>%2F2018%2F07%2F17%2Falgorithm%2FLruCache%2F</url>
+    <content type="text"><![CDATA[由于前面分析过LinkedHashMap，知道其内部运用了一个双向链表结构来存储数据，所以能够保证数据的有序性，并且源代码里预留了三个方法，我们可以基于它们来实现一个LRU缓存。12345678910111213141516171819public class LRUHashMap&lt;K,V&gt; extends LinkedHashMap&lt;K, V&gt; &#123; private static final long serialVersionUID = 1L; //最大缓存数目 private final int maxCapacity; //负载因 private static final float DEFAULT_LOAD_FACTOR = 0.75f; public LRUHashMap(int maxCapacity) &#123; super(maxCapacity, DEFAULT_LOAD_FACTOR, true); this.maxCapacity = maxCapacity; &#125; @Override protected boolean removeEldestEntry(Map.Entry&lt;K, V&gt; eldest) &#123; return size() &gt; maxCapacity; &#125; &#125; 由于LinkedHashMap是线程不安全的，所以要想在多线程环境使用可以使用 Collections.synchronizedMap()方法实现线程安全操作]]></content>
+      <categories>
+        <category>algorithm</category>
+      </categories>
+      <tags>
+        <tag>cache</tag>
+        <tag>LRU</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[HashSet原理分析]]></title>
     <url>%2F2018%2F07%2F15%2Fjava%2FHashSet%2F</url>
     <content type="text"><![CDATA[概述HashSet实现了Set接口，由哈希表（实际上是一个HashMap实例）支持。它不保证set 的迭代顺序；它并不保证随着时间的推移，秩序将保持不变。此类允许使用null元素,是一个不允许存储重复元素的集合 成员变量12private transient HashMap&lt;E,Object&gt; map;private static final Object PRESENT = new Object(); map:用于存放数据 PRESENT: 所有存入的map数据的value值 构造器1234567891011121314151617181920public HashSet() &#123; map = new HashMap&lt;&gt;(); &#125; public HashSet(Collection&lt;? extends E&gt; c) &#123; map = new HashMap&lt;&gt;(Math.max((int) (c.size()/.75f) + 1, 16)); addAll(c); &#125; public HashSet(int initialCapacity, float loadFactor) &#123; map = new HashMap&lt;&gt;(initialCapacity, loadFactor); &#125; public HashSet(int initialCapacity) &#123; map = new HashMap&lt;&gt;(initialCapacity); &#125; HashSet(int initialCapacity, float loadFactor, boolean dummy) &#123; map = new LinkedHashMap&lt;&gt;(initialCapacity, loadFactor); &#125; 通过构造器可以发现使用的是HashMap来初始化map，但其中有一个包访问级别的构造器，使用的是LinkedHashMap，其主要是对LinkedHashSet的支持。 add方法123public boolean add(E e) &#123; return map.put(e, PRESENT)==null;&#125; 通过add方法可以发现，存入的数据其实是作为了map的键，而真正的值是PRESENT,所以这就保证了存入的数据是没有重复的 总结 由于HashSet是借助于HashMap来实现的，所以HashMap会出现的问题,HashSet一样会出现 在用HashSet保存对象的时候，一定要正确的重写其equals和hashCode方法，以保证放入的对象的唯一性]]></content>
