@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://cqjokers.top/"/>
-  <updated>2018-07-17T05:59:41.629Z</updated>
+  <updated>2018-07-17T06:03:29.628Z</updated>
   <id>http://cqjokers.top/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>LruCache的实现</title>
+    <title>LruCache的简单实现</title>
     <link href="http://cqjokers.top/2018/07/17/algorithm/LruCache/"/>
     <id>http://cqjokers.top/2018/07/17/algorithm/LruCache/</id>
     <published>2018-07-16T16:00:00.000Z</published>
-    <updated>2018-07-17T05:59:41.629Z</updated>
+    <updated>2018-07-17T06:03:29.628Z</updated>
     
     <content type="html"><![CDATA[<p>由于前面分析过<a href="https://cqjokers.top/2018/07/12/java/LinkedHashMap/">LinkedHashMap</a>，知道其内部运用了一个双向链表结构来存储数据，所以能够保证数据的有序性，并且源代码里预留了三个方法，我们可以基于它们来实现一个LRU缓存。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LRUHashMap</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">extends</span> <span class="title">LinkedHashMap</span>&lt;<span class="title">K</span>, <span class="title">V</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line"><span class="comment">//最大缓存数目</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> maxCapacity;</span><br><span class="line"><span class="comment">//负载因</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">float</span> DEFAULT_LOAD_FACTOR = <span class="number">0.75f</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">LRUHashMap</span><span class="params">(<span class="keyword">int</span> maxCapacity)</span> </span>&#123;</span><br><span class="line"><span class="keyword">super</span>(maxCapacity, DEFAULT_LOAD_FACTOR, <span class="keyword">true</span>);</span><br><span class="line"><span class="keyword">this</span>.maxCapacity = maxCapacity;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">removeEldestEntry</span><span class="params">(Map.Entry&lt;K, V&gt; eldest)</span> </span>&#123;</span><br><span class="line"><span class="keyword">return</span> size() &gt; maxCapacity;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>由于<code>LinkedHashMap</code>是线程不安全的，所以要想在多线程环境使用可以使用 Collections.synchronizedMap()方法实现线程安全操作</p>]]></content>
     

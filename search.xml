@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[LruCache的实现]]></title>
+    <title><![CDATA[LruCache的简单实现]]></title>
     <url>%2F2018%2F07%2F17%2Falgorithm%2FLruCache%2F</url>
     <content type="text"><![CDATA[由于前面分析过LinkedHashMap，知道其内部运用了一个双向链表结构来存储数据，所以能够保证数据的有序性，并且源代码里预留了三个方法，我们可以基于它们来实现一个LRU缓存。12345678910111213141516171819public class LRUHashMap&lt;K,V&gt; extends LinkedHashMap&lt;K, V&gt; &#123; private static final long serialVersionUID = 1L; //最大缓存数目 private final int maxCapacity; //负载因 private static final float DEFAULT_LOAD_FACTOR = 0.75f; public LRUHashMap(int maxCapacity) &#123; super(maxCapacity, DEFAULT_LOAD_FACTOR, true); this.maxCapacity = maxCapacity; &#125; @Override protected boolean removeEldestEntry(Map.Entry&lt;K, V&gt; eldest) &#123; return size() &gt; maxCapacity; &#125; &#125; 由于LinkedHashMap是线程不安全的，所以要想在多线程环境使用可以使用 Collections.synchronizedMap()方法实现线程安全操作]]></content>
       <categories>
