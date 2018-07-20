@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="java,go" />
+  <meta name="keywords" content="thread,volatile," />
 
 
 
@@ -81,17 +81,18 @@
 
 
 
-<meta name="description" content="When your talents cannot sustain your ambition,You should calm down and learn">
-<meta name="keywords" content="java,goLang">
-<meta property="og:type" content="website">
-<meta property="og:title" content="cqjoker&#39;s Blog">
-<meta property="og:url" content="http://cqjokers.top/archives/2018/07/index.html">
+<meta name="description" content="原子性 原子性就是对数据的操作是独立的不能被分成几个步骤完成也就是不能进行分割，当前操作要么全部执行并且执行的过程不会被任何因素打断，要么就全部都不执行。最典型的例子就是平时经常用的i++操作，其实这一操作是分为三个步骤完成的：1、 读取整数 i 的值；2、 对 i 进行加一操作；3、 将结果写回内存如果这三步骤操作在单线程中执行是完全没有问题的，但是如果在多线程执行则会遇见意想不到的结果，为了保">
+<meta name="keywords" content="thread,volatile">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAVA并发编程中的三个概念">
+<meta property="og:url" content="http://cqjokers.top/2018/07/20/java/ThreadConcept/index.html">
 <meta property="og:site_name" content="cqjoker&#39;s Blog">
-<meta property="og:description" content="When your talents cannot sustain your ambition,You should calm down and learn">
+<meta property="og:description" content="原子性 原子性就是对数据的操作是独立的不能被分成几个步骤完成也就是不能进行分割，当前操作要么全部执行并且执行的过程不会被任何因素打断，要么就全部都不执行。最典型的例子就是平时经常用的i++操作，其实这一操作是分为三个步骤完成的：1、 读取整数 i 的值；2、 对 i 进行加一操作；3、 将结果写回内存如果这三步骤操作在单线程中执行是完全没有问题的，但是如果在多线程执行则会遇见意想不到的结果，为了保">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-07-20T09:56:44.035Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="cqjoker&#39;s Blog">
-<meta name="twitter:description" content="When your talents cannot sustain your ambition,You should calm down and learn">
+<meta name="twitter:title" content="JAVA并发编程中的三个概念">
+<meta name="twitter:description" content="原子性 原子性就是对数据的操作是独立的不能被分成几个步骤完成也就是不能进行分割，当前操作要么全部执行并且执行的过程不会被任何因素打断，要么就全部都不执行。最典型的例子就是平时经常用的i++操作，其实这一操作是分为三个步骤完成的：1、 读取整数 i 的值；2、 对 i 进行加一操作；3、 将结果写回内存如果这三步骤操作在单线程中执行是完全没有问题的，但是如果在多线程执行则会遇见意想不到的结果，为了保">
 
 
 
@@ -121,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://cqjokers.top/archives/2018/07/"/>
+  <link rel="canonical" href="http://cqjokers.top/2018/07/20/java/ThreadConcept/"/>
 
 
 
 
 
-  <title>Archive | cqjoker's Blog</title>
+  <title>JAVA并发编程中的三个概念 | cqjoker's Blog</title>
   
 
 
@@ -156,7 +157,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -294,411 +295,196 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://cqjokers.top/2018/07/20/java/ThreadConcept/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cqjokers">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/14009383?s=400&u=6d0fbe25db27f7e2ddd160c518252b33e80ebff4&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cqjoker's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">JAVA并发编程中的三个概念</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-20T00:00:00+08:00">
+                2018-07-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        Um..! 12 posts in total. Keep on posting.
-      </span>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
 
-        
+          
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/07/20/java/ThreadConcept/" itemprop="url">
-              
-                <span itemprop="name">JAVA并发编程中的三个概念</span>
-              
-            </a>
-        
-      </h2>
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-20T00:00:00+08:00"
-              content="2018-07-20" >
-          07-20
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+          
 
+        </div>
+      </header>
+    
 
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/07/19/java/JMM/" itemprop="url">
-              
-                <span itemprop="name">JAVA内存模型的理解</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-19T00:00:00+08:00"
-              content="2018-07-19" >
-          07-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/07/18/algorithm/consisten-hash/" itemprop="url">
-              
-                <span itemprop="name">一致性Hash分析</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-18T00:00:00+08:00"
-              content="2018-07-18" >
-          07-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <h2 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h2><hr>
+<p>原子性就是对数据的操作是独立的不能被分成几个步骤完成也就是不能进行分割，当前操作要么全部执行并且执行的过程不会被任何因素打断，要么就全部都不执行。最典型的例子就是平时经常用的<code>i++</code>操作，其实这一操作是分为三个步骤完成的：<br>1、 读取整数 i 的值；<br>2、 对 i 进行加一操作；<br>3、 将结果写回内存<br>如果这三步骤操作在单线程中执行是完全没有问题的，但是如果在多线程执行则会遇见意想不到的结果，为了保证是原子操作我们可以使用同步技术（sychronized）和加锁机制（lock )来让它变成一个原子操作。还有一种方式就是CAS（Compare And Swap），即修改数据之前先比较与之前读取到的值是否一致，如果一致，则进行修改，如果不一致则重新执行，这也是乐观锁的实现原理。<br><a id="more"></a></p>
+<h2 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h2><hr>
+<p>由<a href="https://cqjokers.top/2018/07/19/java/JMM/">JAVA内存模型</a>我们知道，所有数据都是先从主内存中加载到工作内存中，对数据进行修改后是先更新工作内存然后才是更新到主内存中，假如在一个线程修改数据后还未更新到主内存中时，而另外一个线程此时去加载了该数据那么此时得到的就是之前的旧数据。<br>　　对于可见性，Java提供了volatile关键字来保证可见性。当一个共享变量被volatile修饰时，它会保证修改的值会立即被更新到主存，当有其他线程需要读取时，它会去主内存中读取新值。相返未使用volatile来修饰的变量则不能保证可见性，因为普通共享变量被修改之后，什么时候被写入主内存是不确定的，当其他线程去读取时，此时内存中可能还是原来的旧值，因此无法保证可见性。<br>　　如果想要普通变量也能保证可见性可以通过synchronized和Lock来保证，synchronized和Lock能保证同一时刻只有一个线程获取锁然后执行同步代码，并且在释放锁之前会将对变量的修改刷新到主存当中。因此可以保证可见性。</p>
+<h2 id="有序性"><a href="#有序性" class="headerlink" title="有序性"></a>有序性</h2><hr>
+<p>有序性：即程序执行的顺序按照代码的先后顺序执行。看下面这段代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">20</span>;</span><br><span class="line">a = a - <span class="number">2</span>;</span><br><span class="line">b = a * b;</span><br></pre></td></tr></table></figure></p>
+<p>按照正常逻辑执行的顺序是：1&gt;2&gt;3&gt;4,但是由于处理器为了提高程序运行效率，可能会对输入代码进行优化，它不保证程序中各个语句的执行先后顺序同代码中的顺序一致，但是它会保证程序最终执行结果和代码顺序执行的结果是一致的，所以上面的执行顺序很有可能是：2&gt;1&gt;3&gt;4,由于处理器在进行重排序时是会考虑指令之间的数据依赖性，如果后面的操作会依赖前面操作的结果，那么就会先执行前面的操作。虽然重排序在单线程中不会出现问题，但在多线程中会出现数据不一致的问题。</p>
+<p>Java 中可以使用 volatile 来保证顺序性，synchronize 和 lock 也可以来保证有序性，和保证原子性的方式一样，通过同一段时间只能一个线程访问来实现的。</p>
+<p>除了通过 volatile 关键字显式的保证顺序之外， JVM 还通过 happen-before 原则来隐式的保证顺序性。happens-before原则规则如下：参考-&gt;<a href="http://cmsblogs.com/?p=2102" target="_blank" rel="noopener">死磕Java并发</a></p>
+<blockquote>
+<ul>
+<li>程序次序规则：一个线程内，按照代码顺序，书写在前面的操作先行发生于书写在后面的操作；</li>
+<li>锁定规则：一个unLock操作先行发生于后面对同一个锁额lock操作；</li>
+<li>volatile变量规则：对一个变量的写操作先行发生于后面对这个变量的读操作；</li>
+<li>传递规则：如果操作A先行发生于操作B，而操作B又先行发生于操作C，则可以得出操作A先行发生于操作C；</li>
+<li>线程启动规则：Thread对象的start()方法先行发生于此线程的每个一个动作；</li>
+<li>线程中断规则：对线程interrupt()方法的调用先行发生于被中断线程的代码检测到中断事件的发生；</li>
+<li>线程终结规则：线程中所有的操作都先行发生于线程的终止检测，我们可以通过Thread.join()方法结束、Thread.isAlive()的返回值手段检测到线程已经终止执行；</li>
+<li>对象终结规则：一个对象的初始化完成先行发生于他的finalize()方法的开始；</li>
+</ul>
+</blockquote>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/07/17/algorithm/LruCache/" itemprop="url">
-              
-                <span itemprop="name">LruCache的简单实现</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-17T00:00:00+08:00"
-              content="2018-07-17" >
-          07-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/07/15/java/HashSet/" itemprop="url">
-              
-                <span itemprop="name">HashSet原理分析</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-15T14:59:20+08:00"
-              content="2018-07-15" >
-          07-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/07/14/java/Timer/" itemprop="url">
-              
-                <span itemprop="name">Timer底层分析</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-14T22:24:08+08:00"
-              content="2018-07-14" >
-          07-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/07/13/错误分析/JavaThreadDumpAnalysis/" itemprop="url">
-              
-                <span itemprop="name">记录线上程序导致服务器CPU过高的问题排除过程</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-13T17:36:30+08:00"
-              content="2018-07-13" >
-          07-13
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/07/12/java/LinkedHashMap/" itemprop="url">
-              
-                <span itemprop="name">LinkedHashMap底层分析</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-12T17:37:34+08:00"
-              content="2018-07-12" >
-          07-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/07/11/java/LinkedList/" itemprop="url">
-              
-                <span itemprop="name">LinkedList底层分析</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-11T16:26:32+08:00"
-              content="2018-07-11" >
-          07-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/07/10/java/ArrayList/" itemprop="url">
-              
-                <span itemprop="name">ArrayList底层分析</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-10T17:08:41+08:00"
-              content="2018-07-10" >
-          07-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/thread/" rel="tag"># thread</a>
+          
+            <a href="/tags/volatile/" rel="tag"># volatile</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/19/java/JMM/" rel="next" title="JAVA内存模型的理解">
+                <i class="fa fa-chevron-left"></i> JAVA内存模型的理解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/2018/07/page/2/">2</a><a class="extend next" rel="next" href="/archives/2018/07/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -706,6 +492,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -726,8 +516,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -808,6 +607,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#原子性"><span class="nav-number">1.</span> <span class="nav-text">原子性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可见性"><span class="nav-number">2.</span> <span class="nav-text">可见性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有序性"><span class="nav-number">3.</span> <span class="nav-text">有序性</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -977,6 +792,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
