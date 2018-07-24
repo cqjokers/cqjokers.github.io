@@ -5,9 +5,9 @@
   <subtitle>奶瓶大叔</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://cqjokers.top/"/>
-  <updated>2018-07-20T09:56:44.035Z</updated>
-  <id>http://cqjokers.top/</id>
+  <link href="https://cqjokers.top/"/>
+  <updated>2018-07-24T09:51:52.291Z</updated>
+  <id>https://cqjokers.top/</id>
   
   <author>
     <name>cqjokers</name>
@@ -17,9 +17,37 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>volatile关键字</title>
+    <link href="https://cqjokers.top/2018/07/24/java/volatile/"/>
+    <id>https://cqjokers.top/2018/07/24/java/volatile/</id>
+    <published>2018-07-23T16:00:00.000Z</published>
+    <updated>2018-07-24T09:51:52.291Z</updated>
+    
+    <content type="html"><![CDATA[<p>  一个变量被volatile修饰之后，则具备了两层含义：</p><ul><li>可见性</li><li>禁止指令重排序（保证有序性）<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">boolean</span> flag = <span class="keyword">false</span>;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">while</span>(!flag) &#123;</span><br><span class="line">                doSomeThing();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">stop</span><span class="params">()</span></span>&#123;</span><br><span class="line">    flag = <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul><p>&emsp;&emsp;上面例子是经常用一个标识来控制线程的结束，理想状态下当另一个线程调用stop方法后则会立即停止，但这毕竟只是我们的假设，上面的代码很有可能会出现一个死循环，当另一个线程调用stop方法后将flag的值设置为true后但并没有去更新主内存中的数据此时就会出现死循环，加上volatile后则会解决上面的问题。因为使用volatile关键字后会强制将修改的值立即写入主存，并让其它线程中的该变量的值失效，当其它线程需要此变量值时由于自己工作内中的已经失效了所以会从主内存中去获得所以得到的就是最新值。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">1</span>;    （<span class="number">1</span>）</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">2</span>;     （<span class="number">2</span>）</span><br><span class="line"><span class="keyword">volatile</span> <span class="keyword">boolean</span> flag = <span class="keyword">false</span>;   （<span class="number">3</span>）</span><br><span class="line">c = <span class="number">3</span>;   （<span class="number">4</span>）</span><br><span class="line">d = <span class="number">4</span>;    （<span class="number">5</span>）</span><br></pre></td></tr></table></figure></p><a id="more"></a><p>&emsp;&emsp;上面例子中由于flag使用了volatile修饰，所以它不会先于1，2执行也不会后于4，5执行，并且1，2执行的结果是对3，4，5可见的，但是并没有保证1，2和4，5的执行顺序。</p><p>volatile关键字禁止指令重排序有两层意思：<br>　　1）当程序执行到volatile变量的读操作或者写操作时，在其前面的操作肯定全部已经完成，且后面的操作肯定还没有开始，前面的执行结果是对后面的操作可见的<br>　　2）在进行指令优化时，不能将在对volatile变量访问的语句放在其后面执行，也不能把volatile变量后面的语句放到其前面执行。</p><p><strong>volatile不能保证操作的原子性</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">   <span class="keyword">static</span> <span class="keyword">volatile</span> <span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line">   <span class="keyword">static</span> CountDownLatch countDownLatch = <span class="keyword">new</span> CountDownLatch(<span class="number">5</span>);</span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)&#123;</span><br><span class="line">           <span class="keyword">new</span> Thread()&#123;</span><br><span class="line">               <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                   <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">1000</span>;j++)</span><br><span class="line">                       num++;</span><br><span class="line">                   countDownLatch.countDown();</span><br><span class="line">               &#125;;</span><br><span class="line">           &#125;.start();</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">//等待计算线程执行完</span></span><br><span class="line">       countDownLatch.await();</span><br><span class="line">       System.out.println(num);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>执行结果：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">4351</span>  <span class="number">3786</span>  <span class="number">4518</span>  <span class="number">3123</span>  <span class="number">3275</span></span><br></pre></td></tr></table></figure></p><p>对上面代码执行了5次但结果都不是预期的5000，由此可以看出虽然num使用了volatile来修饰但在对其进行自增时并不是原子操作。由于自增操作是分为3步完成，在多线程情况下，假如有一个线程将num读取到了自己的本地内存中且是一个很小的值，此时其他线程很有可能已经将num增大了很多，这个线程依然对num进行自加，然后重新写到主存中，这样就导致了num的结果与预期的不符合。要解决上面的问题只需将num类型替换成<code>AtomicInteger</code>就能解决问题<br><strong>volatile 的应用</strong></p><ul><li><p>双重检查锁的单例模式</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> Singleton singleton;</span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (Singleton.class) &#123;</span><br><span class="line">            <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</span><br><span class="line">                singleton = <span class="keyword">new</span> Singleton();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> singleton;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p>控制停止线程的标记</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">boolean</span> flag = <span class="keyword">false</span>;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">while</span>(!flag) &#123;</span><br><span class="line">                doSomeThing();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">stop</span><span class="params">()</span></span>&#123;</span><br><span class="line">    flag = <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;  一个变量被volatile修饰之后，则具备了两层含义：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;可见性&lt;/li&gt;
+&lt;li&gt;禁止指令重排序（保证有序性）&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;boolean&lt;/span&gt; flag = &lt;span class=&quot;keyword&quot;&gt;false&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Thread(&lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; Runnable() &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;meta&quot;&gt;@Override&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;while&lt;/span&gt;(!flag) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                doSomeThing();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;stop&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    flag = &lt;span class=&quot;keyword&quot;&gt;true&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&amp;emsp;&amp;emsp;上面例子是经常用一个标识来控制线程的结束，理想状态下当另一个线程调用stop方法后则会立即停止，但这毕竟只是我们的假设，上面的代码很有可能会出现一个死循环，当另一个线程调用stop方法后将flag的值设置为true后但并没有去更新主内存中的数据此时就会出现死循环，加上volatile后则会解决上面的问题。因为使用volatile关键字后会强制将修改的值立即写入主存，并让其它线程中的该变量的值失效，当其它线程需要此变量值时由于自己工作内中的已经失效了所以会从主内存中去获得所以得到的就是最新值。&lt;br&gt;&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; a = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;;    （&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;）&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; b = &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;;     （&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;）&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;volatile&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;boolean&lt;/span&gt; flag = &lt;span class=&quot;keyword&quot;&gt;false&lt;/span&gt;;   （&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;）&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;c = &lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;;   （&lt;span class=&quot;number&quot;&gt;4&lt;/span&gt;）&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;d = &lt;span class=&quot;number&quot;&gt;4&lt;/span&gt;;    （&lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;）&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="-java" scheme="https://cqjokers.top/categories/java/"/>
+    
+    
+      <category term="-volatile" scheme="https://cqjokers.top/tags/volatile/"/>
+    
+  </entry>
+  
+  <entry>
     <title>JAVA并发编程中的三个概念</title>
-    <link href="http://cqjokers.top/2018/07/20/java/ThreadConcept/"/>
-    <id>http://cqjokers.top/2018/07/20/java/ThreadConcept/</id>
+    <link href="https://cqjokers.top/2018/07/20/java/ThreadConcept/"/>
+    <id>https://cqjokers.top/2018/07/20/java/ThreadConcept/</id>
     <published>2018-07-19T16:00:00.000Z</published>
     <updated>2018-07-20T09:56:44.035Z</updated>
     
@@ -32,19 +60,19 @@
     
     </summary>
     
-      <category term="java" scheme="http://cqjokers.top/categories/java/"/>
+      <category term="java" scheme="https://cqjokers.top/categories/java/"/>
     
     
-      <category term="thread" scheme="http://cqjokers.top/tags/thread/"/>
+      <category term="thread" scheme="https://cqjokers.top/tags/thread/"/>
     
-      <category term="volatile" scheme="http://cqjokers.top/tags/volatile/"/>
+      <category term="volatile" scheme="https://cqjokers.top/tags/volatile/"/>
     
   </entry>
   
   <entry>
     <title>JAVA内存模型的理解</title>
-    <link href="http://cqjokers.top/2018/07/19/java/JMM/"/>
-    <id>http://cqjokers.top/2018/07/19/java/JMM/</id>
+    <link href="https://cqjokers.top/2018/07/19/java/JMM/"/>
+    <id>https://cqjokers.top/2018/07/19/java/JMM/</id>
     <published>2018-07-18T16:00:00.000Z</published>
     <updated>2018-07-20T07:01:29.955Z</updated>
     
@@ -56,17 +84,17 @@
     
     </summary>
     
-      <category term="java" scheme="http://cqjokers.top/categories/java/"/>
+      <category term="java" scheme="https://cqjokers.top/categories/java/"/>
     
     
-      <category term="JMM" scheme="http://cqjokers.top/tags/JMM/"/>
+      <category term="JMM" scheme="https://cqjokers.top/tags/JMM/"/>
     
   </entry>
   
   <entry>
     <title>一致性Hash分析</title>
-    <link href="http://cqjokers.top/2018/07/18/algorithm/consisten-hash/"/>
-    <id>http://cqjokers.top/2018/07/18/algorithm/consisten-hash/</id>
+    <link href="https://cqjokers.top/2018/07/18/algorithm/consisten-hash/"/>
+    <id>https://cqjokers.top/2018/07/18/algorithm/consisten-hash/</id>
     <published>2018-07-17T16:00:00.000Z</published>
     <updated>2018-07-18T06:04:17.345Z</updated>
     
@@ -79,19 +107,19 @@
     
     </summary>
     
-      <category term="algorithm" scheme="http://cqjokers.top/categories/algorithm/"/>
+      <category term="algorithm" scheme="https://cqjokers.top/categories/algorithm/"/>
     
     
-      <category term="hash" scheme="http://cqjokers.top/tags/hash/"/>
+      <category term="hash" scheme="https://cqjokers.top/tags/hash/"/>
     
-      <category term="algorithm" scheme="http://cqjokers.top/tags/algorithm/"/>
+      <category term="algorithm" scheme="https://cqjokers.top/tags/algorithm/"/>
     
   </entry>
   
   <entry>
     <title>LruCache的简单实现</title>
-    <link href="http://cqjokers.top/2018/07/17/algorithm/LruCache/"/>
-    <id>http://cqjokers.top/2018/07/17/algorithm/LruCache/</id>
+    <link href="https://cqjokers.top/2018/07/17/algorithm/LruCache/"/>
+    <id>https://cqjokers.top/2018/07/17/algorithm/LruCache/</id>
     <published>2018-07-16T16:00:00.000Z</published>
     <updated>2018-07-17T07:48:41.992Z</updated>
     
@@ -104,19 +132,19 @@
     
     </summary>
     
-      <category term="algorithm" scheme="http://cqjokers.top/categories/algorithm/"/>
+      <category term="algorithm" scheme="https://cqjokers.top/categories/algorithm/"/>
     
     
-      <category term="cache" scheme="http://cqjokers.top/tags/cache/"/>
+      <category term="cache" scheme="https://cqjokers.top/tags/cache/"/>
     
-      <category term="LRU" scheme="http://cqjokers.top/tags/LRU/"/>
+      <category term="LRU" scheme="https://cqjokers.top/tags/LRU/"/>
     
   </entry>
   
   <entry>
     <title>HashSet原理分析</title>
-    <link href="http://cqjokers.top/2018/07/15/java/HashSet/"/>
-    <id>http://cqjokers.top/2018/07/15/java/HashSet/</id>
+    <link href="https://cqjokers.top/2018/07/15/java/HashSet/"/>
+    <id>https://cqjokers.top/2018/07/15/java/HashSet/</id>
     <published>2018-07-15T06:59:20.000Z</published>
     <updated>2018-07-16T03:00:13.603Z</updated>
     
@@ -132,17 +160,17 @@
     
     </summary>
     
-      <category term="java" scheme="http://cqjokers.top/categories/java/"/>
+      <category term="java" scheme="https://cqjokers.top/categories/java/"/>
     
     
-      <category term="set" scheme="http://cqjokers.top/tags/set/"/>
+      <category term="set" scheme="https://cqjokers.top/tags/set/"/>
     
   </entry>
   
   <entry>
     <title>Timer底层分析</title>
-    <link href="http://cqjokers.top/2018/07/14/java/Timer/"/>
-    <id>http://cqjokers.top/2018/07/14/java/Timer/</id>
+    <link href="https://cqjokers.top/2018/07/14/java/Timer/"/>
+    <id>https://cqjokers.top/2018/07/14/java/Timer/</id>
     <published>2018-07-14T14:24:08.000Z</published>
     <updated>2018-07-16T01:11:26.091Z</updated>
     
@@ -157,17 +185,17 @@
     
     </summary>
     
-      <category term="java" scheme="http://cqjokers.top/categories/java/"/>
+      <category term="java" scheme="https://cqjokers.top/categories/java/"/>
     
     
-      <category term="timer" scheme="http://cqjokers.top/tags/timer/"/>
+      <category term="timer" scheme="https://cqjokers.top/tags/timer/"/>
     
   </entry>
   
   <entry>
     <title>记录线上程序导致服务器CPU过高的问题排除过程</title>
-    <link href="http://cqjokers.top/2018/07/13/%E9%94%99%E8%AF%AF%E5%88%86%E6%9E%90/JavaThreadDumpAnalysis/"/>
-    <id>http://cqjokers.top/2018/07/13/错误分析/JavaThreadDumpAnalysis/</id>
+    <link href="https://cqjokers.top/2018/07/13/%E9%94%99%E8%AF%AF%E5%88%86%E6%9E%90/JavaThreadDumpAnalysis/"/>
+    <id>https://cqjokers.top/2018/07/13/错误分析/JavaThreadDumpAnalysis/</id>
     <published>2018-07-13T09:36:30.000Z</published>
     <updated>2018-07-13T09:41:55.337Z</updated>
     
@@ -180,21 +208,21 @@
     
     </summary>
     
-      <category term="错误分析" scheme="http://cqjokers.top/categories/%E9%94%99%E8%AF%AF%E5%88%86%E6%9E%90/"/>
+      <category term="错误分析" scheme="https://cqjokers.top/categories/%E9%94%99%E8%AF%AF%E5%88%86%E6%9E%90/"/>
     
     
-      <category term="thread" scheme="http://cqjokers.top/tags/thread/"/>
+      <category term="thread" scheme="https://cqjokers.top/tags/thread/"/>
     
-      <category term="dump" scheme="http://cqjokers.top/tags/dump/"/>
+      <category term="dump" scheme="https://cqjokers.top/tags/dump/"/>
     
-      <category term="Analysis" scheme="http://cqjokers.top/tags/Analysis/"/>
+      <category term="Analysis" scheme="https://cqjokers.top/tags/Analysis/"/>
     
   </entry>
   
   <entry>
     <title>LinkedHashMap底层分析</title>
-    <link href="http://cqjokers.top/2018/07/12/java/LinkedHashMap/"/>
-    <id>http://cqjokers.top/2018/07/12/java/LinkedHashMap/</id>
+    <link href="https://cqjokers.top/2018/07/12/java/LinkedHashMap/"/>
+    <id>https://cqjokers.top/2018/07/12/java/LinkedHashMap/</id>
     <published>2018-07-12T09:37:34.000Z</published>
     <updated>2018-07-12T09:43:52.908Z</updated>
     
@@ -210,17 +238,17 @@
     
     </summary>
     
-      <category term="java" scheme="http://cqjokers.top/categories/java/"/>
+      <category term="java" scheme="https://cqjokers.top/categories/java/"/>
     
     
-      <category term="map" scheme="http://cqjokers.top/tags/map/"/>
+      <category term="map" scheme="https://cqjokers.top/tags/map/"/>
     
   </entry>
   
   <entry>
     <title>LinkedList底层分析</title>
-    <link href="http://cqjokers.top/2018/07/11/java/LinkedList/"/>
-    <id>http://cqjokers.top/2018/07/11/java/LinkedList/</id>
+    <link href="https://cqjokers.top/2018/07/11/java/LinkedList/"/>
+    <id>https://cqjokers.top/2018/07/11/java/LinkedList/</id>
     <published>2018-07-11T08:26:32.000Z</published>
     <updated>2018-07-12T09:59:32.798Z</updated>
     
@@ -239,17 +267,17 @@
     
     </summary>
     
-      <category term="java" scheme="http://cqjokers.top/categories/java/"/>
+      <category term="java" scheme="https://cqjokers.top/categories/java/"/>
     
     
-      <category term="list" scheme="http://cqjokers.top/tags/list/"/>
+      <category term="list" scheme="https://cqjokers.top/tags/list/"/>
     
   </entry>
   
   <entry>
     <title>ArrayList底层分析</title>
-    <link href="http://cqjokers.top/2018/07/10/java/ArrayList/"/>
-    <id>http://cqjokers.top/2018/07/10/java/ArrayList/</id>
+    <link href="https://cqjokers.top/2018/07/10/java/ArrayList/"/>
+    <id>https://cqjokers.top/2018/07/10/java/ArrayList/</id>
     <published>2018-07-10T09:08:41.000Z</published>
     <updated>2018-07-10T09:13:37.096Z</updated>
     
@@ -270,17 +298,17 @@
     
     </summary>
     
-      <category term="java" scheme="http://cqjokers.top/categories/java/"/>
+      <category term="java" scheme="https://cqjokers.top/categories/java/"/>
     
     
-      <category term="list" scheme="http://cqjokers.top/tags/list/"/>
+      <category term="list" scheme="https://cqjokers.top/tags/list/"/>
     
   </entry>
   
   <entry>
     <title>HashMap底层分析</title>
-    <link href="http://cqjokers.top/2018/07/09/java/HashMap/"/>
-    <id>http://cqjokers.top/2018/07/09/java/HashMap/</id>
+    <link href="https://cqjokers.top/2018/07/09/java/HashMap/"/>
+    <id>https://cqjokers.top/2018/07/09/java/HashMap/</id>
     <published>2018-07-09T10:22:41.000Z</published>
     <updated>2018-07-12T09:59:41.862Z</updated>
     
@@ -300,17 +328,17 @@
     
     </summary>
     
-      <category term="java" scheme="http://cqjokers.top/categories/java/"/>
+      <category term="java" scheme="https://cqjokers.top/categories/java/"/>
     
     
-      <category term="HashMap" scheme="http://cqjokers.top/tags/HashMap/"/>
+      <category term="HashMap" scheme="https://cqjokers.top/tags/HashMap/"/>
     
   </entry>
   
   <entry>
     <title>java线程池分析</title>
-    <link href="http://cqjokers.top/2018/07/05/java/ThreadPoolExecutor/"/>
-    <id>http://cqjokers.top/2018/07/05/java/ThreadPoolExecutor/</id>
+    <link href="https://cqjokers.top/2018/07/05/java/ThreadPoolExecutor/"/>
+    <id>https://cqjokers.top/2018/07/05/java/ThreadPoolExecutor/</id>
     <published>2018-07-05T08:22:41.000Z</published>
     <updated>2018-07-09T01:22:31.142Z</updated>
     
@@ -350,10 +378,10 @@
     
     </summary>
     
-      <category term="java" scheme="http://cqjokers.top/categories/java/"/>
+      <category term="java" scheme="https://cqjokers.top/categories/java/"/>
     
     
-      <category term="pool" scheme="http://cqjokers.top/tags/pool/"/>
+      <category term="pool" scheme="https://cqjokers.top/tags/pool/"/>
     
   </entry>
   
