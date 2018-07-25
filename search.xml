@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[JAVA内存划分]]></title>
+    <url>%2F2018%2F07%2F25%2Fjava%2Fjava-memory-partition%2F</url>
+    <content type="text"><![CDATA[Java程序在运行时，需要在内存中的分配空间。为了提高运算效率，就对数据进行了不同空间的划分，每一片区域都有特定的处理数据方式和内存管理方式。具体划分为如下5个内存空间： 程序计数器 java栈(虚拟机栈) 本地方法栈 堆 方法区(jdk8换用metaSpace)程序计数器程序计数器是线程独有的，每个线程都有一个属于自己的程序计数器，它的作用是指向下一条指令的地址，在线程创建的时候就创建它。正是因为有了它，在多线程情况下才能知道每条线程上次执行的位置，当切换回来的时候才能明确该从哪里开始执行。java栈（虚拟机栈）虚拟机栈由一系列栈帧组成，每个方法被调用的时候都会创建一个栈帧压入虚拟机栈中，每个栈帧用于存储局部变量表，操作栈，常量池指针，方法出口等信息，当方法执行完毕之后，便会将栈帧出栈。在多线程情况下由于每个线程正在执行的方法很有可能不相同，所以JAVA栈是线程独有的，每个线程都会有一个自己的Java栈，互不干扰。 本地方法栈本地方法栈与java虚拟机栈原理非常相似，区别是：java虚拟机栈是为虚拟机执行java方法服务的而本地方法栈则是为虚拟机执行本地方法（Native Method）服务。堆堆是这几块内存区域中最大的一块用来存储对象本身和数组，在虚拟机启动的时候堆内存也就被创建了，这块内存被所有线程共享，在虚拟机运行期间的所有线程创建的对象的实例都被存储在堆内存中，由于对象都存在该堆上所以它也是垃圾收集器管理的主要区域。方法区从jdk8开始方法区用Meta Space代替并且metaSpace不再放在运行时数据区域而是放在本地的内存中。它和堆一样是所有线程共享的。存放了一些常量、静态变量、类信息等，可以理解成class文件在内存中的存放位置。]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>memory</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[volatile关键字]]></title>
     <url>%2F2018%2F07%2F24%2Fjava%2Fvolatile%2F</url>
     <content type="text"><![CDATA[一个变量被volatile修饰之后，则具备了两层含义： 可见性 禁止指令重排序（保证有序性）1234567891011121314private boolean flag = false;private void test()&#123; new Thread(new Runnable() &#123; @Override public void run() &#123; while(!flag) &#123; doSomeThing(); &#125; &#125; &#125;);&#125;private void stop()&#123; flag = true;&#125; &emsp;&emsp;上面例子是经常用一个标识来控制线程的结束，理想状态下当另一个线程调用stop方法后则会立即停止，但这毕竟只是我们的假设，上面的代码很有可能会出现一个死循环，当另一个线程调用stop方法后将flag的值设置为true后但并没有去更新主内存中的数据此时就会出现死循环，加上volatile后则会解决上面的问题。因为使用volatile关键字后会强制将修改的值立即写入主存，并让其它线程中的该变量的值失效，当其它线程需要此变量值时由于自己工作内中的已经失效了所以会从主内存中去获得所以得到的就是最新值。12345int a = 1; （1）int b = 2; （2）volatile boolean flag = false; （3）c = 3; （4）d = 4; （5） &emsp;&emsp;上面例子中由于flag使用了volatile修饰，所以它不会先于1，2执行也不会后于4，5执行，并且1，2执行的结果是对3，4，5可见的，但是并没有保证1，2和4，5的执行顺序。 volatile关键字禁止指令重排序有两层意思： 1）当程序执行到volatile变量的读操作或者写操作时，在其前面的操作肯定全部已经完成，且后面的操作肯定还没有开始，前面的执行结果是对后面的操作可见的 2）在进行指令优化时，不能将在对volatile变量访问的语句放在其后面执行，也不能把volatile变量后面的语句放到其前面执行。 volatile不能保证操作的原子性12345678910111213141516 static volatile int num = 0; static CountDownLatch countDownLatch = new CountDownLatch(5); private static void test() throws InterruptedException &#123; for(int i=0;i&lt;5;i++)&#123; new Thread()&#123; public void run() &#123; for(int j=0;j&lt;1000;j++) num++; countDownLatch.countDown(); &#125;; &#125;.start(); &#125; //等待计算线程执行完 countDownLatch.await(); System.out.println(num);&#125; 执行结果：14351 3786 4518 3123 3275 对上面代码执行了5次但结果都不是预期的5000，由此可以看出虽然num使用了volatile来修饰但在对其进行自增时并不是原子操作。由于自增操作是分为3步完成，在多线程情况下，假如有一个线程将num读取到了自己的本地内存中且是一个很小的值，此时其他线程很有可能已经将num增大了很多，这个线程依然对num进行自加，然后重新写到主存中，这样就导致了num的结果与预期的不符合。要解决上面的问题只需将num类型替换成AtomicInteger就能解决问题volatile 的应用 双重检查锁的单例模式 123456789101112131415public class Singleton &#123; private static volatile Singleton singleton; private Singleton() &#123; &#125; public static Singleton getInstance() &#123; if (singleton == null) &#123; synchronized (Singleton.class) &#123; if (singleton == null) &#123; singleton = new Singleton(); &#125; &#125; &#125; return singleton; &#125;&#125; 控制停止线程的标记 1234567891011121314private volatile boolean flag = false;private void test()&#123; new Thread(new Runnable() &#123; @Override public void run() &#123; while(!flag) &#123; doSomeThing(); &#125; &#125; &#125;);&#125;private void stop()&#123; flag = true;&#125;]]></content>

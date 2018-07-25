@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://cqjokers.top/"/>
-  <updated>2018-07-25T01:01:08.820Z</updated>
+  <updated>2018-07-25T06:54:42.510Z</updated>
   <id>https://cqjokers.top/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JAVA内存划分</title>
+    <link href="https://cqjokers.top/2018/07/25/java/java-memory-partition/"/>
+    <id>https://cqjokers.top/2018/07/25/java/java-memory-partition/</id>
+    <published>2018-07-24T16:00:00.000Z</published>
+    <updated>2018-07-25T06:54:42.510Z</updated>
+    
+    <content type="html"><![CDATA[<p>Java程序在运行时，需要在内存中的分配空间。为了提高运算效率，就对数据进行了不同空间的划分，每一片区域都有特定的处理数据方式和内存管理方式。<br>具体划分为如下5个内存空间：</p><ul><li>程序计数器</li><li>java栈(虚拟机栈)</li><li>本地方法栈</li><li>堆</li><li>方法区(jdk8换用metaSpace)<h2 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h2>程序计数器是线程独有的，每个线程都有一个属于自己的程序计数器，它的作用是指向下一条指令的地址，在线程创建的时候就创建它。正是因为有了它，在多线程情况下才能知道每条线程上次执行的位置，当切换回来的时候才能明确该从哪里开始执行。<h2 id="java栈（虚拟机栈）"><a href="#java栈（虚拟机栈）" class="headerlink" title="java栈（虚拟机栈）"></a>java栈（虚拟机栈）</h2>虚拟机栈由一系列栈帧组成，每个方法被调用的时候都会创建一个栈帧压入虚拟机栈中，每个栈帧用于存储局部变量表，操作栈，常量池指针，方法出口等信息，当方法执行完毕之后，便会将栈帧出栈。在多线程情况下由于每个线程正在执行的方法很有可能不相同，所以JAVA栈是线程独有的，每个线程都会有一个自己的Java栈，互不干扰。<a id="more"></a><h2 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h2>本地方法栈与java虚拟机栈原理非常相似，区别是：java虚拟机栈是为虚拟机执行java方法服务的而本地方法栈则是为虚拟机执行本地方法（Native Method）服务。<h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2>堆是这几块内存区域中最大的一块用来存储对象本身和数组，在虚拟机启动的时候堆内存也就被创建了，这块内存被所有线程共享，在虚拟机运行期间的所有线程创建的对象的实例都被存储在堆内存中，由于对象都存在该堆上所以它也是垃圾收集器管理的主要区域。<h2 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h2>从jdk8开始方法区用Meta Space代替并且metaSpace不再放在运行时数据区域而是放在本地的内存中。它和堆一样是所有线程共享的。存放了一些常量、静态变量、类信息等，可以理解成class文件在内存中的存放位置。</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Java程序在运行时，需要在内存中的分配空间。为了提高运算效率，就对数据进行了不同空间的划分，每一片区域都有特定的处理数据方式和内存管理方式。&lt;br&gt;具体划分为如下5个内存空间：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;程序计数器&lt;/li&gt;
+&lt;li&gt;java栈(虚拟机栈)&lt;/li&gt;
+&lt;li&gt;本地方法栈&lt;/li&gt;
+&lt;li&gt;堆&lt;/li&gt;
+&lt;li&gt;方法区(jdk8换用metaSpace)&lt;h2 id=&quot;程序计数器&quot;&gt;&lt;a href=&quot;#程序计数器&quot; class=&quot;headerlink&quot; title=&quot;程序计数器&quot;&gt;&lt;/a&gt;程序计数器&lt;/h2&gt;程序计数器是线程独有的，每个线程都有一个属于自己的程序计数器，它的作用是指向下一条指令的地址，在线程创建的时候就创建它。正是因为有了它，在多线程情况下才能知道每条线程上次执行的位置，当切换回来的时候才能明确该从哪里开始执行。&lt;h2 id=&quot;java栈（虚拟机栈）&quot;&gt;&lt;a href=&quot;#java栈（虚拟机栈）&quot; class=&quot;headerlink&quot; title=&quot;java栈（虚拟机栈）&quot;&gt;&lt;/a&gt;java栈（虚拟机栈）&lt;/h2&gt;虚拟机栈由一系列栈帧组成，每个方法被调用的时候都会创建一个栈帧压入虚拟机栈中，每个栈帧用于存储局部变量表，操作栈，常量池指针，方法出口等信息，当方法执行完毕之后，便会将栈帧出栈。在多线程情况下由于每个线程正在执行的方法很有可能不相同，所以JAVA栈是线程独有的，每个线程都会有一个自己的Java栈，互不干扰。
+    
+    </summary>
+    
+      <category term="java" scheme="https://cqjokers.top/categories/java/"/>
+    
+    
+      <category term="memory" scheme="https://cqjokers.top/tags/memory/"/>
+    
+  </entry>
   
   <entry>
     <title>volatile关键字</title>
