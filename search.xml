@@ -5,10 +5,10 @@
     <url>%2F2018%2F07%2F24%2Fjava%2Fvolatile%2F</url>
     <content type="text"><![CDATA[一个变量被volatile修饰之后，则具备了两层含义： 可见性 禁止指令重排序（保证有序性）1234567891011121314private boolean flag = false;private void test()&#123; new Thread(new Runnable() &#123; @Override public void run() &#123; while(!flag) &#123; doSomeThing(); &#125; &#125; &#125;);&#125;private void stop()&#123; flag = true;&#125; &emsp;&emsp;上面例子是经常用一个标识来控制线程的结束，理想状态下当另一个线程调用stop方法后则会立即停止，但这毕竟只是我们的假设，上面的代码很有可能会出现一个死循环，当另一个线程调用stop方法后将flag的值设置为true后但并没有去更新主内存中的数据此时就会出现死循环，加上volatile后则会解决上面的问题。因为使用volatile关键字后会强制将修改的值立即写入主存，并让其它线程中的该变量的值失效，当其它线程需要此变量值时由于自己工作内中的已经失效了所以会从主内存中去获得所以得到的就是最新值。12345int a = 1; （1）int b = 2; （2）volatile boolean flag = false; （3）c = 3; （4）d = 4; （5） &emsp;&emsp;上面例子中由于flag使用了volatile修饰，所以它不会先于1，2执行也不会后于4，5执行，并且1，2执行的结果是对3，4，5可见的，但是并没有保证1，2和4，5的执行顺序。 volatile关键字禁止指令重排序有两层意思： 1）当程序执行到volatile变量的读操作或者写操作时，在其前面的操作肯定全部已经完成，且后面的操作肯定还没有开始，前面的执行结果是对后面的操作可见的 2）在进行指令优化时，不能将在对volatile变量访问的语句放在其后面执行，也不能把volatile变量后面的语句放到其前面执行。 volatile不能保证操作的原子性12345678910111213141516 static volatile int num = 0; static CountDownLatch countDownLatch = new CountDownLatch(5); private static void test() throws InterruptedException &#123; for(int i=0;i&lt;5;i++)&#123; new Thread()&#123; public void run() &#123; for(int j=0;j&lt;1000;j++) num++; countDownLatch.countDown(); &#125;; &#125;.start(); &#125; //等待计算线程执行完 countDownLatch.await(); System.out.println(num);&#125; 执行结果：14351 3786 4518 3123 3275 对上面代码执行了5次但结果都不是预期的5000，由此可以看出虽然num使用了volatile来修饰但在对其进行自增时并不是原子操作。由于自增操作是分为3步完成，在多线程情况下，假如有一个线程将num读取到了自己的本地内存中且是一个很小的值，此时其他线程很有可能已经将num增大了很多，这个线程依然对num进行自加，然后重新写到主存中，这样就导致了num的结果与预期的不符合。要解决上面的问题只需将num类型替换成AtomicInteger就能解决问题volatile 的应用 双重检查锁的单例模式 123456789101112131415public class Singleton &#123; private static volatile Singleton singleton; private Singleton() &#123; &#125; public static Singleton getInstance() &#123; if (singleton == null) &#123; synchronized (Singleton.class) &#123; if (singleton == null) &#123; singleton = new Singleton(); &#125; &#125; &#125; return singleton; &#125;&#125; 控制停止线程的标记 1234567891011121314private volatile boolean flag = false;private void test()&#123; new Thread(new Runnable() &#123; @Override public void run() &#123; while(!flag) &#123; doSomeThing(); &#125; &#125; &#125;);&#125;private void stop()&#123; flag = true;&#125;]]></content>
       <categories>
-        <category>-java</category>
+        <category>java</category>
       </categories>
       <tags>
-        <tag>-volatile</tag>
+        <tag>volatile</tag>
       </tags>
   </entry>
   <entry>
