@@ -4,6 +4,24 @@
 
     
   <url>
+    <loc>https://cqjokers.top/2018/07/26/java/java-rubbish-collection/</loc>
+    <lastmod>2018-07-26T03:23:19.982Z</lastmod>
+    <data>
+        <display>
+        <title>JAVA垃圾回收机制</title>
+        <pubTime>2018-07-25T16:00:00.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="java" url="https://cqjokers.top/categories/java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://cqjokers.top/2018/07/25/java/java-memory-partition/</loc>
     <lastmod>2018-07-25T06:54:42.510Z</lastmod>
     <data>
@@ -51,9 +69,9 @@
         <title>JAVA并发编程中的三个概念</title>
         <pubTime>2018-07-19T16:00:00.000Z</pubTime>
         
-        <tag>thread</tag>
-         
         <tag>volatile</tag>
+         
+        <tag>thread</tag>
          
          
            
@@ -178,9 +196,9 @@
         <title>记录线上程序导致服务器CPU过高的问题排除过程</title>
         <pubTime>2018-07-13T09:36:30.000Z</pubTime>
         
-        <tag>thread</tag>
-         
         <tag>dump</tag>
+         
+        <tag>thread</tag>
          
         <tag>Analysis</tag>
          
