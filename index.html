@@ -309,7 +309,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cqjokers.top/note/2018/07/30/9fd04b7.html">
+    <link itemprop="mainEntityOfPage" href="https://cqjokers.top/note/2018/07-30/9fd04b7.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="cqjokers">
@@ -328,7 +328,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/note/2018/07/30/9fd04b7.html" itemprop="url">JAVA类加载机制</a></h1>
+                <a class="post-title-link" href="/note/2018/07-30/9fd04b7.html" itemprop="url">JAVA类加载机制</a></h1>
         
 
         <div class="post-meta">
@@ -409,7 +409,7 @@
 <li>在内存中生在一个代表这个类的java.lang.Class对象，作为方法区这个类的各种数据访问的入口。<br>一个非数组类的加载阶段是开发人员可控性最强的，因为加载阶段既可以使用系统提供的引导类加载器来完成，也可以由用户自定义的类加载器去完成(即重写一个类加载器的loadClass()方法)。数组类本身不通过类加载器创建，它是由JVM直接创建的。但数组类和类加载器仍有很紧密的关系，因为数组类的元素类型最终是靠类加载器去创建。<br>加载阶段完成后，虚拟机外部的二进制字节流就按照虚拟机所需的格式存储在方法区之中，方法区中的数据存储格式由虚拟机实现自行定义。然后在内存中实例化一个java.lang.Classo类的对象作为程序访问方法区中的这些类型数据的外部接口。<br>加载阶段与连接阶段的部分内容（如一部分字节码文件格式验证动作）是交叉进行的，加载阶段尚未结束，连接阶段就可能开始了。但是夹在加载阶段进行的动作，仍然属于连接阶段的内容。
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/note/2018/07/30/9fd04b7.html#more" rel="contents">
+            <a class="btn" href="/note/2018/07-30/9fd04b7.html#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -460,7 +460,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cqjokers.top/note/2018/07/26/40a57016.html">
+    <link itemprop="mainEntityOfPage" href="https://cqjokers.top/note/2018/07-26/40a57016.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="cqjokers">
@@ -479,7 +479,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/note/2018/07/26/40a57016.html" itemprop="url">JAVA垃圾回收机制</a></h1>
+                <a class="post-title-link" href="/note/2018/07-26/40a57016.html" itemprop="url">JAVA垃圾回收机制</a></h1>
         
 
         <div class="post-meta">
@@ -562,7 +562,7 @@
 <h3 id="可达性分析算法"><a href="#可达性分析算法" class="headerlink" title="可达性分析算法"></a>可达性分析算法</h3><p>从一个节点GC ROOT开始，录找对应的引用节点，找到后继续去寻找它的引用节点，直到寻找完毕，可以把这一寻找过程理解为一个串。当一个对象通过这个串无法到达GC Root时则可以确认该对象已死亡可以被回收。<br><img src="https://upload-images.jianshu.io/upload_images/13023122-a872b4a45336e57f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>通过上图可以看出object 5,6,7是无法到达GC Root的所以他们是可以被回收的对象<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/note/2018/07/26/40a57016.html#more" rel="contents">
+            <a class="btn" href="/note/2018/07-26/40a57016.html#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -613,7 +613,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cqjokers.top/note/2018/07/25/a0da5680.html">
+    <link itemprop="mainEntityOfPage" href="https://cqjokers.top/note/2018/07-25/a0da5680.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="cqjokers">
@@ -632,7 +632,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/note/2018/07/25/a0da5680.html" itemprop="url">JAVA内存划分</a></h1>
+                <a class="post-title-link" href="/note/2018/07-25/a0da5680.html" itemprop="url">JAVA内存划分</a></h1>
         
 
         <div class="post-meta">
@@ -714,7 +714,7 @@
 <li>方法区(jdk8换用metaSpace)<h2 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h2>程序计数器是线程独有的，每个线程都有一个属于自己的程序计数器，它的作用是指向下一条指令的地址，在线程创建的时候就创建它。正是因为有了它，在多线程情况下才能知道每条线程上次执行的位置，当切换回来的时候才能明确该从哪里开始执行。<h2 id="java栈（虚拟机栈）"><a href="#java栈（虚拟机栈）" class="headerlink" title="java栈（虚拟机栈）"></a>java栈（虚拟机栈）</h2>虚拟机栈由一系列栈帧组成，每个方法被调用的时候都会创建一个栈帧压入虚拟机栈中，每个栈帧用于存储局部变量表，操作栈，常量池指针，方法出口等信息，当方法执行完毕之后，便会将栈帧出栈。在多线程情况下由于每个线程正在执行的方法很有可能不相同，所以JAVA栈是线程独有的，每个线程都会有一个自己的Java栈，互不干扰。
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/note/2018/07/25/a0da5680.html#more" rel="contents">
+            <a class="btn" href="/note/2018/07-25/a0da5680.html#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -765,7 +765,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cqjokers.top/note/2018/07/24/111e02e0.html">
+    <link itemprop="mainEntityOfPage" href="https://cqjokers.top/note/2018/07-24/111e02e0.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="cqjokers">
@@ -784,7 +784,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/note/2018/07/24/111e02e0.html" itemprop="url">volatile关键字</a></h1>
+                <a class="post-title-link" href="/note/2018/07-24/111e02e0.html" itemprop="url">volatile关键字</a></h1>
         
 
         <div class="post-meta">
@@ -866,7 +866,7 @@
 <p>&emsp;&emsp;上面例子是经常用一个标识来控制线程的结束，理想状态下当另一个线程调用stop方法后则会立即停止，但这毕竟只是我们的假设，上面的代码很有可能会出现一个死循环，当另一个线程调用stop方法后将flag的值设置为true后但并没有去更新主内存中的数据此时就会出现死循环，加上volatile后则会解决上面的问题。因为使用volatile关键字后会强制将修改的值立即写入主存，并让其它线程中的该变量的值失效，当其它线程需要此变量值时由于自己工作内中的已经失效了所以会从主内存中去获得所以得到的就是最新值。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">1</span>;    （<span class="number">1</span>）</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">2</span>;     （<span class="number">2</span>）</span><br><span class="line"><span class="keyword">volatile</span> <span class="keyword">boolean</span> flag = <span class="keyword">false</span>;   （<span class="number">3</span>）</span><br><span class="line">c = <span class="number">3</span>;   （<span class="number">4</span>）</span><br><span class="line">d = <span class="number">4</span>;    （<span class="number">5</span>）</span><br></pre></td></tr></table></figure></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/note/2018/07/24/111e02e0.html#more" rel="contents">
+            <a class="btn" href="/note/2018/07-24/111e02e0.html#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -917,7 +917,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cqjokers.top/note/2018/07/20/6208b7fd.html">
+    <link itemprop="mainEntityOfPage" href="https://cqjokers.top/note/2018/07-20/6208b7fd.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="cqjokers">
@@ -936,7 +936,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/note/2018/07/20/6208b7fd.html" itemprop="url">JAVA并发编程中的三个概念</a></h1>
+                <a class="post-title-link" href="/note/2018/07-20/6208b7fd.html" itemprop="url">JAVA并发编程中的三个概念</a></h1>
         
 
         <div class="post-meta">
@@ -1013,7 +1013,7 @@
 <p>原子性就是对数据的操作是独立的不能被分成几个步骤完成也就是不能进行分割，当前操作要么全部执行并且执行的过程不会被任何因素打断，要么就全部都不执行。最典型的例子就是平时经常用的<code>i++</code>操作，其实这一操作是分为三个步骤完成的：<br>1、 读取整数 i 的值；<br>2、 对 i 进行加一操作；<br>3、 将结果写回内存<br>如果这三步骤操作在单线程中执行是完全没有问题的，但是如果在多线程执行则会遇见意想不到的结果，为了保证是原子操作我们可以使用同步技术（sychronized）和加锁机制（lock )来让它变成一个原子操作。还有一种方式就是CAS（Compare And Swap），即修改数据之前先比较与之前读取到的值是否一致，如果一致，则进行修改，如果不一致则重新执行，这也是乐观锁的实现原理。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/note/2018/07/20/6208b7fd.html#more" rel="contents">
+            <a class="btn" href="/note/2018/07-20/6208b7fd.html#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1064,7 +1064,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cqjokers.top/note/2018/07/19/57fe836e.html">
+    <link itemprop="mainEntityOfPage" href="https://cqjokers.top/note/2018/07-19/57fe836e.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="cqjokers">
@@ -1083,7 +1083,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/note/2018/07/19/57fe836e.html" itemprop="url">JAVA内存模型的理解</a></h1>
+                <a class="post-title-link" href="/note/2018/07-19/57fe836e.html" itemprop="url">JAVA内存模型的理解</a></h1>
         
 
         <div class="post-meta">
@@ -1159,7 +1159,7 @@
           <p>我们买电脑时一般会看电脑参数，在这些参数上会有一个高速缓存，这项参数是用来干什么的了。由于电脑CPU执行速度非常快，而执行程序时会从内存读取数据和向内存写入数据这样的一个过程跟CPU执行指令的速度是没法比的，所以对数据的操作都要通过和内存的交互来进行那么就会大大降低指令执行的速度。因此就产生了上面所说的高速缓存。引入了高速缓存虽然在速度上面已经解决了处理器与内存交互的问题，但是又引发了新的问题缓存一致性，为了解决这一问题从而就产生了一些保障数据一致性的协议，它们的核心的思想是：进行写数据时，发现操作的变量是共享变量（其他CPU中也存在该变量的副本），则会发出信号通知其他CPU将该变量的缓存行置为无效状态，因此当其他CPU需要读取这个变量时，发现自己缓存中该变量的缓存行是无效的，那么它则会从内存重新读取。<img src="https://upload-images.jianshu.io/upload_images/13023122-755bb213a713906f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/note/2018/07/19/57fe836e.html#more" rel="contents">
+            <a class="btn" href="/note/2018/07-19/57fe836e.html#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1210,7 +1210,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cqjokers.top/note/2018/07/18/170f63c6.html">
+    <link itemprop="mainEntityOfPage" href="https://cqjokers.top/note/2018/07-18/170f63c6.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="cqjokers">
@@ -1229,7 +1229,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/note/2018/07/18/170f63c6.html" itemprop="url">一致性Hash分析</a></h1>
+                <a class="post-title-link" href="/note/2018/07-18/170f63c6.html" itemprop="url">一致性Hash分析</a></h1>
         
 
         <div class="post-meta">
@@ -1306,7 +1306,7 @@
 <h2 id="取模运算方式"><a href="#取模运算方式" class="headerlink" title="取模运算方式"></a>取模运算方式</h2><p>将传入的Key按照<code>index = hash(key) % len</code>方式计算出需要存放的服务器节点，其中len是服务器数量，通过取模运算就能将数据均匀的分布到不同的服务器上。但这种方式有缺陷，如果某一天老板说再加一台服务器，此时服务器数就变成了4，那么通过上面方式来获取数据很有可能不会命中，因为重新计算了key，换句话说当服务器数量发生改变时，所有缓存在一定时间内是失效的，当应用无法从缓存中获取数据时则会向后端服务器请求数据。同理，假设缓存服务器中突然有一台务器出现了故障，无法进行缓存，那么我们则需要将故障机器移除，但是如果移除了一台缓存服务器，那么缓存服务器数量从4台变为3台，如果想要访问数据，这条数据的缓存位置必定会发生改变，之前缓存的数据也失去了缓存的作用与意义，由于大量缓存在同一时间失效，造成了缓存的雪崩，此时后端服务器将会承受巨大的压力，整个系统很有可能被压垮。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/note/2018/07/18/170f63c6.html#more" rel="contents">
+            <a class="btn" href="/note/2018/07-18/170f63c6.html#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1357,7 +1357,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cqjokers.top/note/2018/07/17/40b4c498.html">
+    <link itemprop="mainEntityOfPage" href="https://cqjokers.top/note/2018/07-17/40b4c498.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="cqjokers">
@@ -1376,7 +1376,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/note/2018/07/17/40b4c498.html" itemprop="url">LruCache的简单实现</a></h1>
+                <a class="post-title-link" href="/note/2018/07-17/40b4c498.html" itemprop="url">LruCache的简单实现</a></h1>
         
 
         <div class="post-meta">
@@ -1453,7 +1453,7 @@
 <p>由于<code>LinkedHashMap</code>是线程不安全的，所以要想在多线程环境使用可以使用 Collections.synchronizedMap()方法实现线程安全操作<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/note/2018/07/17/40b4c498.html#more" rel="contents">
+            <a class="btn" href="/note/2018/07-17/40b4c498.html#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1504,7 +1504,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cqjokers.top/note/2018/07/15/e40c8608.html">
+    <link itemprop="mainEntityOfPage" href="https://cqjokers.top/note/2018/07-15/e40c8608.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="cqjokers">
@@ -1523,7 +1523,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/note/2018/07/15/e40c8608.html" itemprop="url">HashSet原理分析</a></h1>
+                <a class="post-title-link" href="/note/2018/07-15/e40c8608.html" itemprop="url">HashSet原理分析</a></h1>
         
 
         <div class="post-meta">
@@ -1603,7 +1603,7 @@
 <li>PRESENT: 所有存入的map数据的value值
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/note/2018/07/15/e40c8608.html#more" rel="contents">
+            <a class="btn" href="/note/2018/07-15/e40c8608.html#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1654,7 +1654,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cqjokers.top/note/2018/07/14/fa474e95.html">
+    <link itemprop="mainEntityOfPage" href="https://cqjokers.top/note/2018/07-14/fa474e95.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="cqjokers">
@@ -1673,7 +1673,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/note/2018/07/14/fa474e95.html" itemprop="url">Timer底层分析</a></h1>
+                <a class="post-title-link" href="/note/2018/07-14/fa474e95.html" itemprop="url">Timer底层分析</a></h1>
         
 
         <div class="post-meta">
@@ -1752,7 +1752,7 @@
 <p>当我们实例化一个Timer类的时候会为线程设置一个名字并启动此线程然后一直处于等待状态直到到队列中加入任务<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/note/2018/07/14/fa474e95.html#more" rel="contents">
+            <a class="btn" href="/note/2018/07-14/fa474e95.html#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
