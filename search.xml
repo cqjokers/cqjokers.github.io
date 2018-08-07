@@ -115,8 +115,8 @@
         <category>错误分析</category>
       </categories>
       <tags>
-        <tag>thread</tag>
         <tag>dump</tag>
+        <tag>thread</tag>
         <tag>Analysis</tag>
       </tags>
   </entry>
