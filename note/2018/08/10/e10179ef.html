@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="thread,dump,Analysis," />
+  <meta name="keywords" content="spring boot," />
 
 
 
@@ -81,23 +81,29 @@
 
 
 
-<meta name="description" content="故障描述昨天上午朋友告诉我之前我做的一个外包项目(抓取公共运输整合资讯流通服务平台上的数据)突然无法访问了，通过浏览器访问一直处于等待状态，于是我登录服务器查看CPU使用率发现，CPU占用达到80%以上，而java进程CPU占有率则是达到350%以上。 问题查找查看当前服务器CPU占有率最简单的方法就是通过top命令查看根据上图发现pid为27055的进程CPU占有率达到353.2%，于是通过to">
-<meta name="keywords" content="thread,dump,Analysis">
+<meta name="description" content="前言在平时开发中难免会对静态资源的访问，如js、css、图片等其它资源，在SpringBoot中对静态资源提供了很好的支持，基本上可以直接通过配置就能满足平时开发中的需求，当然对于特殊需求也可以自定义资源映射来满足 默认静态资源映射我们通过启动的时候控制台输出可以发现Spring Boot 默认将 /**映射到所有资源目录，如下图所示：那么默认的资源目录有哪些了，我们可以通过在applicati">
+<meta name="keywords" content="spring boot">
 <meta property="og:type" content="article">
-<meta property="og:title" content="记录线上程序导致服务器CPU过高的问题排除过程">
-<meta property="og:url" content="https://cqjokers.top/note/2018/07/13/ec3f81d6.html">
+<meta property="og:title" content="SpringBoot学习|(三)静态资源处理">
+<meta property="og:url" content="https://cqjokers.top/note/2018/08/10/e10179ef.html">
 <meta property="og:site_name" content="cqjoker&#39;s Blog">
-<meta property="og:description" content="故障描述昨天上午朋友告诉我之前我做的一个外包项目(抓取公共运输整合资讯流通服务平台上的数据)突然无法访问了，通过浏览器访问一直处于等待状态，于是我登录服务器查看CPU使用率发现，CPU占用达到80%以上，而java进程CPU占有率则是达到350%以上。 问题查找查看当前服务器CPU占有率最简单的方法就是通过top命令查看根据上图发现pid为27055的进程CPU占有率达到353.2%，于是通过to">
+<meta property="og:description" content="前言在平时开发中难免会对静态资源的访问，如js、css、图片等其它资源，在SpringBoot中对静态资源提供了很好的支持，基本上可以直接通过配置就能满足平时开发中的需求，当然对于特殊需求也可以自定义资源映射来满足 默认静态资源映射我们通过启动的时候控制台输出可以发现Spring Boot 默认将 /**映射到所有资源目录，如下图所示：那么默认的资源目录有哪些了，我们可以通过在applicati">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13023122-5480faab09f208ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13023122-8cd16dc2bf1d1e96.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13023122-90a35033582f4d69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13023122-c463bf338c18dc4e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-07-31T01:15:51.561Z">
+<meta property="og:image" content="https://i.loli.net/2018/08/10/5b6d18f56c5e9.jpg">
+<meta property="og:image" content="https://i.loli.net/2018/08/10/5b6cf32ace9a4.png">
+<meta property="og:image" content="https://i.loli.net/2018/08/10/5b6cf44a625a9.png">
+<meta property="og:image" content="https://i.loli.net/2018/08/10/5b6cf55d88d61.png">
+<meta property="og:image" content="https://i.loli.net/2018/08/10/5b6cfa701e8a9.png">
+<meta property="og:image" content="https://i.loli.net/2018/08/10/5b6cfadd49fde.png">
+<meta property="og:image" content="https://i.loli.net/2018/08/10/5b6d035fd9dec.png">
+<meta property="og:image" content="https://i.loli.net/2018/08/10/5b6d04260dd12.png">
+<meta property="og:image" content="https://i.loli.net/2018/08/10/5b6d13d1e0146.png">
+<meta property="og:image" content="https://i.loli.net/2018/08/10/5b6d14ca35e9c.png">
+<meta property="og:updated_time" content="2018-08-10T04:48:16.179Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="记录线上程序导致服务器CPU过高的问题排除过程">
-<meta name="twitter:description" content="故障描述昨天上午朋友告诉我之前我做的一个外包项目(抓取公共运输整合资讯流通服务平台上的数据)突然无法访问了，通过浏览器访问一直处于等待状态，于是我登录服务器查看CPU使用率发现，CPU占用达到80%以上，而java进程CPU占有率则是达到350%以上。 问题查找查看当前服务器CPU占有率最简单的方法就是通过top命令查看根据上图发现pid为27055的进程CPU占有率达到353.2%，于是通过to">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/13023122-5480faab09f208ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="SpringBoot学习|(三)静态资源处理">
+<meta name="twitter:description" content="前言在平时开发中难免会对静态资源的访问，如js、css、图片等其它资源，在SpringBoot中对静态资源提供了很好的支持，基本上可以直接通过配置就能满足平时开发中的需求，当然对于特殊需求也可以自定义资源映射来满足 默认静态资源映射我们通过启动的时候控制台输出可以发现Spring Boot 默认将 /**映射到所有资源目录，如下图所示：那么默认的资源目录有哪些了，我们可以通过在applicati">
+<meta name="twitter:image" content="https://i.loli.net/2018/08/10/5b6d18f56c5e9.jpg">
 
 
 
@@ -127,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="https://cqjokers.top/note/2018/07/13/ec3f81d6.html"/>
+  <link rel="canonical" href="https://cqjokers.top/note/2018/08/10/e10179ef.html"/>
 
 
 
 
 
-  <title>记录线上程序导致服务器CPU过高的问题排除过程 | cqjoker's Blog</title>
+  <title>SpringBoot学习|(三)静态资源处理 | cqjoker's Blog</title>
   
 
 
@@ -314,7 +320,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cqjokers.top/note/2018/07/13/ec3f81d6.html">
+    <link itemprop="mainEntityOfPage" href="https://cqjokers.top/note/2018/08/10/e10179ef.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="cqjokers">
@@ -331,7 +337,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">记录线上程序导致服务器CPU过高的问题排除过程</h1>
+          <h1 class="post-title" itemprop="name headline">SpringBoot学习|(三)静态资源处理</h1>
         
 
         <div class="post-meta">
@@ -343,8 +349,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-13T17:36:30+08:00">
-                2018-07-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-10T00:00:00+08:00">
+                2018-08-10
               </time>
             
 
@@ -366,8 +372,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/错误分析/" itemprop="url" rel="index">
-                    <span itemprop="name">错误分析</span>
+                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
+                    <span itemprop="name">SpringBoot</span>
                   </a>
                 </span>
 
@@ -408,14 +414,16 @@
       
 
       
-        <h2 id="故障描述"><a href="#故障描述" class="headerlink" title="故障描述"></a>故障描述</h2><p>昨天上午朋友告诉我之前我做的一个外包项目(抓取公共运输整合资讯流通服务平台上的数据)突然无法访问了，通过浏览器访问一直处于等待状态，于是我登录服务器查看CPU使用率发现，CPU占用达到80%以上，而java进程CPU占有率则是达到350%以上。</p>
-<h2 id="问题查找"><a href="#问题查找" class="headerlink" title="问题查找"></a>问题查找</h2><p>查看当前服务器CPU占有率最简单的方法就是通过top命令查看<img src="https://upload-images.jianshu.io/upload_images/13023122-5480faab09f208ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="">根据上图发现pid为27055的进程CPU占有率达到353.2%，于是通过<code>top -p 27055 -H</code>命令把该进程的所有线程都显示出来，然后发现几个占用CPU资源特别大的线程tid如下图所示：<img src="https://upload-images.jianshu.io/upload_images/13023122-8cd16dc2bf1d1e96.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="">根据上图所示发现有4个线程占用CPU非常高<br><a id="more"></a></p>
-<h2 id="分析线程堆栈"><a href="#分析线程堆栈" class="headerlink" title="分析线程堆栈"></a>分析线程堆栈</h2><p>首先通过<code>jstack 27055 &gt; java-stack.log</code>命令将堆栈信息导出到日志文件里，然后将之前看到的线程ID转为16进制在日志文件里进行查找发现这4个线程是垃圾回收线程，分析图如下图所示：<br><img src="https://upload-images.jianshu.io/upload_images/13023122-90a35033582f4d69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="">也可以将堆栈日志上传这上网上进行分析<a href="http://heaphero.io" target="_blank" rel="noopener">Fast thread</a>如果日志文件太大最好还是使用MAT工具进行分析。<br>由于之前写的几个并没有出现这样的问题，是最近新添的几个抓取网址才导致出现CPU飙高，通过fastThread进行分析发现有几个线程执行的代码是一样的，但是按照正常流程该段代码只会出现在一个线程，如下图所示：<img src="https://upload-images.jianshu.io/upload_images/13023122-c463bf338c18dc4e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="">上图标红的这几个线程都是执行最近新添的代码，并且发现都卡在了<code>startHandshake</code>这里，在网上搜索发现也有其它小伙伴遇见这个问题。由于抓取的数据量非常大所以执行的时间会比较久再加上自己手贱在定时执行线程中又包了一个子线程，所以导致了上面出现的几个线程同时执行同一段代码，通过浏览器不用https访问发现一样可以取到数据，然后果断的将后台上的网址换掉。通过优化代码和更换网址后从昨天到今天暂时未发现CPU占用较高的问题</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
-<li>通过这次问题发现，线程一定不要乱用，凡是用到多线程的地方一定要谨慎思考</li>
-<li>对于分析问题也会有不少的收获，一些基本的JVM命令需要去了解并在发现问题时知道怎么用。</li>
-<li>对于java程序而言，CPU占用过高大多数是因为内存不够，而GC又回收不了导致的</li>
-</ul>
+        <p><img src="https://i.loli.net/2018/08/10/5b6d18f56c5e9.jpg" alt=""></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在平时开发中难免会对静态资源的访问，如js、css、图片等其它资源，在SpringBoot中对静态资源提供了很好的支持，基本上可以直接通过配置就能满足平时开发中的需求，当然对于特殊需求也可以自定义资源映射来满足</p>
+<h1 id="默认静态资源映射"><a href="#默认静态资源映射" class="headerlink" title="默认静态资源映射"></a>默认静态资源映射</h1><p>我们通过启动的时候控制台输出可以发现Spring Boot 默认将 /**映射到所有资源目录，如下图所示：<img src="https://i.loli.net/2018/08/10/5b6cf32ace9a4.png" alt=""><br>那么默认的资源目录有哪些了，我们可以通过在<code>application.properties</code>配置文件中尝试输入static然后IDEA工具会自动显示出与之相关的配置，如下图所示：<img src="https://i.loli.net/2018/08/10/5b6cf44a625a9.png" alt="">这里我们选择第一个，然后按住ctrl点击它则会进入<code>ResourceProperties</code>类，在类的开始处就定义了一个字符串数组来存放默认资源路径，如下图所示：<img src="https://i.loli.net/2018/08/10/5b6cf55d88d61.png" alt="">SpringBoot默认的资源路径有以下几个：</p>
+<blockquote>
+<p>1、classpath:/META-INF/resources/<br>2、classpath:/resources/<br>3、classpath:/static/<br>4、classpath:/public/</p>
+</blockquote>
+<a id="more"></a>
+<p>在访问资源时会按照这个顺序进行搜索直到找到为止。在第一张图片中发现还有一个/webjars/<strong>,那么这个映射的路径又是什么了，首先先找到<code>spring-boot-autoconfigure</code>包中的spring.factories如图所示：<img src="https://i.loli.net/2018/08/10/5b6cfa701e8a9.png" alt="">然后在里面找到<code>WebMvcAutoConfiguration</code>按住ctrl点击进入该类，搜索webjars则会找到它的映射目录，如下图所示：<img src="https://i.loli.net/2018/08/10/5b6cfadd49fde.png" alt="">通过上图可知/webjars/</strong>映射的目录是<code>classpath:/META-INF/resources/webjars/</code>，访问webjars下的资源都会映射到该目录里去。</p>
+<h1 id="自定义静态资源映射"><a href="#自定义静态资源映射" class="headerlink" title="自定义静态资源映射"></a>自定义静态资源映射</h1><p>有时候开发中可能需要自定义静态资源访问路径，那么这里有两种方式来实现：<br>1、修改配置文件中相关配置<br>2、继承<code>WebMvcConfigurationSupport</code>来实现<br>第一种方式：修改application.properties<br>比如说现在想让<code>/assets/**</code>映射到默认资源路径上则只需要在配置中加上<code>spring.mvc.static-path-pattern=/assets/**</code>即可，配置了该项后默认的就不再生效，比如访问/resources/1.jpg这样的将不再会访问到。如果需要修改默认资源路径，则在配置中加上<code>spring.resources.static-locations</code>并将值设置为自己的资源路径，这里可以设置多个以逗号分隔。<br>第二种方式：继承<code>WebMvcConfigurationSupport</code><br>可以写一个类来继承<code>WebMvcConfigurationSupport</code>并得它的<code>addResourceHandlers</code>方法来达到自定义静态资源映射，如下图所示：<img src="https://i.loli.net/2018/08/10/5b6d035fd9dec.png" alt="">在该方法中我添加了多个资源映射，该方式与配置方式的好处在于可以添加多个，而配置方式只能设置一个。现在暂且不看<code>configureViewResolvers</code>方法可以运行起来试试看，结果应该不是预期的那样，会得到一个错误页面，并在控制台中有错误信息。如下图所示：<img src="https://i.loli.net/2018/08/10/5b6d04260dd12.png" alt="">根据错误信息可知是没有找到对应的视图，但是我在application.proerities中进行了视图的相关配置。要想知道错误的原因则需要从入口类中的<code>EnableAutoConfiguration</code>注解中的<code>EnableAutoConfiguration</code>进行分析，在这里大概说下是怎么回事，在启动的时候会根<code>EnableAutoConfiguration</code>注解导入的<code>AutoConfigurationImportSelector</code>类中的<code>getCandidateConfigurations</code>方法去导入<code>spring-boot-autoconfigure</code>jar下面的配置文件META-INF/spring.factories，在这个配置文件中会找到一个WebMvcAutoConfiguration，如下图所示：<img src="https://i.loli.net/2018/08/10/5b6d13d1e0146.png" alt="">进入该类会发现一个<code>ConditionalOnMissingBean</code>注解，它的意思是如果不存在它修饰的类的bean,则再创建这个bean。源码如下图所示：<img src="https://i.loli.net/2018/08/10/5b6d14ca35e9c.png" alt="">由此可得出结论：<br>如果有配置文件继承了DelegatingWebMvcConfiguration，<br>或者WebMvcConfigurationSupport，或者配置文件有@EnableWebMvc，那么 @EnableAutoConfiguration 中的WebMvcAutoConfiguration 将不会被自动配置，而是使用WebMvcConfigurationSupport的配置。所以到这里就基本上明白了上面访问的时候报错的原因了，现在只需要在自定义类中重写<code>configureViewResolvers</code>方法，加上相关设置即可。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>在开发过程中如果使用了类似<code>@EnableWebMvc</code>这样的注解，则<code>@EnableAutoConfiguration</code>中的将不再生效，这就需要在代码中进行相关设置。</p>
 
       
     </div>
@@ -433,11 +441,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/thread/" rel="tag"># thread</a>
-          
-            <a href="/tags/dump/" rel="tag"># dump</a>
-          
-            <a href="/tags/Analysis/" rel="tag"># Analysis</a>
+            <a href="/tags/spring-boot/" rel="tag"># spring boot</a>
           
         </div>
       
@@ -450,8 +454,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/note/2018/07/12/87d7104e.html" rel="next" title="LinkedHashMap底层分析">
-                <i class="fa fa-chevron-left"></i> LinkedHashMap底层分析
+              <a href="/note/2018/08/09/c7818a32.html" rel="next" title="Spring Boot (二)JSP的支持">
+                <i class="fa fa-chevron-left"></i> Spring Boot (二)JSP的支持
               </a>
             
           </div>
@@ -459,10 +463,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/note/2018/07/14/fa474e95.html" rel="prev" title="Timer底层分析">
-                Timer底层分析 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -633,7 +633,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#故障描述"><span class="nav-number">1.</span> <span class="nav-text">故障描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题查找"><span class="nav-number">2.</span> <span class="nav-text">问题查找</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析线程堆栈"><span class="nav-number">3.</span> <span class="nav-text">分析线程堆栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#默认静态资源映射"><span class="nav-number">2.</span> <span class="nav-text">默认静态资源映射</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自定义静态资源映射"><span class="nav-number">3.</span> <span class="nav-text">自定义静态资源映射</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
