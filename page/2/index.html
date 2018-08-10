@@ -309,6 +309,153 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cqjokers.top/note/2018/07/18/170f63c6.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cqjokers">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/14009383?s=400&u=6d0fbe25db27f7e2ddd160c518252b33e80ebff4&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cqjoker's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/note/2018/07/18/170f63c6.html" itemprop="url">一致性Hash分析</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-18T00:00:00+08:00">
+                2018-07-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="场景描述"><a href="#场景描述" class="headerlink" title="场景描述"></a>场景描述</h2><p>在开发中经常会用到缓存来减轻数据库的压力，比较常见的就是使用redis，但当数据达到一定量时一台缓存服务器已经无法满足现在的需求，所以需要进行分布存储，假设现在有3台缓存服务器，那么该如何将数据均匀的分布到这3台服务器上了。</p>
+<h2 id="取模运算方式"><a href="#取模运算方式" class="headerlink" title="取模运算方式"></a>取模运算方式</h2><p>将传入的Key按照<code>index = hash(key) % len</code>方式计算出需要存放的服务器节点，其中len是服务器数量，通过取模运算就能将数据均匀的分布到不同的服务器上。但这种方式有缺陷，如果某一天老板说再加一台服务器，此时服务器数就变成了4，那么通过上面方式来获取数据很有可能不会命中，因为重新计算了key，换句话说当服务器数量发生改变时，所有缓存在一定时间内是失效的，当应用无法从缓存中获取数据时则会向后端服务器请求数据。同理，假设缓存服务器中突然有一台务器出现了故障，无法进行缓存，那么我们则需要将故障机器移除，但是如果移除了一台缓存服务器，那么缓存服务器数量从4台变为3台，如果想要访问数据，这条数据的缓存位置必定会发生改变，之前缓存的数据也失去了缓存的作用与意义，由于大量缓存在同一时间失效，造成了缓存的雪崩，此时后端服务器将会承受巨大的压力，整个系统很有可能被压垮。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/note/2018/07/18/170f63c6.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://cqjokers.top/note/2018/07/17/40b4c498.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1729,7 +1876,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
