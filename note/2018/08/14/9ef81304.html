@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="java,go" />
+  <meta name="keywords" content="redis,error," />
 
 
 
@@ -81,17 +81,21 @@
 
 
 
-<meta name="description" content="When your talents cannot sustain your ambition,You should calm down and learn">
-<meta name="keywords" content="java,goLang">
-<meta property="og:type" content="website">
-<meta property="og:title" content="cqjoker&#39;s Blog">
-<meta property="og:url" content="https://cqjokers.top/archives/page/2/index.html">
+<meta name="description" content="今天中午，朋友说之前我做的那个外包项目客户那边说数据不对。于是马上登录服务器把日志下载下来查看原因，查看日志发现出现了如下图所示的问题：日志里出现了大量的”MISCONF Redis is configured to save RDB snapshots, but it is currently not able to persist on disk. Commands that may modi">
+<meta name="keywords" content="redis,error">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis ＂MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk＂问题">
+<meta property="og:url" content="https://cqjokers.top/note/2018/08/14/9ef81304.html">
 <meta property="og:site_name" content="cqjoker&#39;s Blog">
-<meta property="og:description" content="When your talents cannot sustain your ambition,You should calm down and learn">
+<meta property="og:description" content="今天中午，朋友说之前我做的那个外包项目客户那边说数据不对。于是马上登录服务器把日志下载下来查看原因，查看日志发现出现了如下图所示的问题：日志里出现了大量的”MISCONF Redis is configured to save RDB snapshots, but it is currently not able to persist on disk. Commands that may modi">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.loli.net/2018/08/14/5b72656d33de9.png">
+<meta property="og:image" content="https://i.loli.net/2018/08/14/5b726772228fb.png">
+<meta property="og:updated_time" content="2018-08-14T05:37:20.756Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="cqjoker&#39;s Blog">
-<meta name="twitter:description" content="When your talents cannot sustain your ambition,You should calm down and learn">
+<meta name="twitter:title" content="Redis ＂MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk＂问题">
+<meta name="twitter:description" content="今天中午，朋友说之前我做的那个外包项目客户那边说数据不对。于是马上登录服务器把日志下载下来查看原因，查看日志发现出现了如下图所示的问题：日志里出现了大量的”MISCONF Redis is configured to save RDB snapshots, but it is currently not able to persist on disk. Commands that may modi">
+<meta name="twitter:image" content="https://i.loli.net/2018/08/14/5b72656d33de9.png">
 
 
 
@@ -121,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="https://cqjokers.top/archives/page/2/"/>
+  <link rel="canonical" href="https://cqjokers.top/note/2018/08/14/9ef81304.html"/>
 
 
 
 
 
-  <title>归档 | cqjoker's Blog</title>
+  <title>Redis ＂MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk＂问题 | cqjoker's Blog</title>
   
 
 
@@ -156,7 +160,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -294,411 +298,179 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cqjokers.top/note/2018/08/14/9ef81304.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cqjokers">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/14009383?s=400&u=6d0fbe25db27f7e2ddd160c518252b33e80ebff4&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cqjoker's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">Redis ＂MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk＂问题</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-14T13:36:22+08:00">
+                2018-08-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 23 篇日志。 继续努力。
-      </span>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/错误分析/" itemprop="url" rel="index">
+                    <span itemprop="name">错误分析</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
 
-        
+          
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/note/2018/07/24/111e02e0.html" itemprop="url">
-              
-                <span itemprop="name">volatile关键字</span>
-              
-            </a>
-        
-      </h2>
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-24T00:00:00+08:00"
-              content="2018-07-24" >
-          07-24
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+          
 
+        </div>
+      </header>
+    
 
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/note/2018/07/20/6208b7fd.html" itemprop="url">
-              
-                <span itemprop="name">JAVA并发编程中的三个概念</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-20T00:00:00+08:00"
-              content="2018-07-20" >
-          07-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/note/2018/07/19/57fe836e.html" itemprop="url">
-              
-                <span itemprop="name">JAVA内存模型的理解</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-19T00:00:00+08:00"
-              content="2018-07-19" >
-          07-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <p>今天中午，朋友说之前我做的那个外包项目客户那边说数据不对。于是马上登录服务器把日志下载下来查看原因，查看日志发现出现了如下图所示的问题：<img src="https://i.loli.net/2018/08/14/5b72656d33de9.png" alt="">日志里出现了大量的”MISCONF Redis is configured to save RDB snapshots, but it is currently not able to persist on disk. Commands that may modify the data set are disabled, because this instance is configured to report errors during writes if RDB snapshotting fails (stop-writes-on-bgsave-error option). Please check the Redis logs for details about the RDB error.”错误，于是再去查看redis日志，发现出现了”Can’t save in background: fork: Cannot allocate memory”错误提示。对于第一条错误，网上很多都是“config set stop-writes-on-bgsave-error no”但这样做仅仅是忽略了这个异常，使得程序能够继续往下运行，但实际上还是会失败！再查看redis日志的时候还发现了一条这样的提示：<img src="https://i.loli.net/2018/08/14/5b726772228fb.png" alt="">（警告：过量使用内存设置为0！在低内存环境下，后台保存可能失败。为了修正这个问题，请在/etc/sysctl.conf 添加一项 ‘vm.overcommit_memory = 1’ ，然后重启（或者运行命令’sysctl vm.overcommit_memory=1’ ）使其生效。）这样的提示在我的印象中好像基本上每次重启redis的时候都有出现，但当时都是直接忽略掉并没有放在心上。结合这条提示大概就能明白为什么会出现”Can’t save in background: fork: Cannot allocate memory”的错误，人家明明都已经提示了而我却没有引起注意只能怪自己太SB，最后按照提示进行修改，在<code>/etc/sysctl.conf</code>中加入<code>vm.overcommit_memory=1</code>保存后并执行命令<code>sysctl vm.overcommit_memory=1</code>使其生效，重启redis后即可，至于<code>vm.overcommit_memory=1</code>这是干嘛用的就只有去问娘了。</p>
+<blockquote>
+<p>内核参数overcommit_memory<br>它是 内存分配策略<br>可选值：0、1、2。<br>0， 表示内核将检查是否有足够的可用内存供应用进程使用；如果有足够的可用内存，内存申请允许；否则，内存申请失败，并把错误返回给应用进程。<br>1， 表示内核允许分配所有的物理内存，而不管当前的内存状态如何。<br>2， 表示内核允许分配超过所有物理内存和交换空间总和的内存</p>
+</blockquote>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/note/2018/07/18/170f63c6.html" itemprop="url">
-              
-                <span itemprop="name">一致性Hash分析</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-18T00:00:00+08:00"
-              content="2018-07-18" >
-          07-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/note/2018/07/17/40b4c498.html" itemprop="url">
-              
-                <span itemprop="name">LruCache的简单实现</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-17T00:00:00+08:00"
-              content="2018-07-17" >
-          07-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/note/2018/07/15/e40c8608.html" itemprop="url">
-              
-                <span itemprop="name">HashSet原理分析</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-15T14:59:20+08:00"
-              content="2018-07-15" >
-          07-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/note/2018/07/14/fa474e95.html" itemprop="url">
-              
-                <span itemprop="name">Timer底层分析</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-14T22:24:08+08:00"
-              content="2018-07-14" >
-          07-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/note/2018/07/13/ec3f81d6.html" itemprop="url">
-              
-                <span itemprop="name">记录线上程序导致服务器CPU过高的问题排除过程</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-13T17:36:30+08:00"
-              content="2018-07-13" >
-          07-13
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/note/2018/07/12/87d7104e.html" itemprop="url">
-              
-                <span itemprop="name">LinkedHashMap底层分析</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-12T17:37:34+08:00"
-              content="2018-07-12" >
-          07-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/note/2018/07/11/79e7a99b.html" itemprop="url">
-              
-                <span itemprop="name">LinkedList底层分析</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-11T16:26:32+08:00"
-              content="2018-07-11" >
-          07-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/redis/" rel="tag"># redis</a>
+          
+            <a href="/tags/error/" rel="tag"># error</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/note/2018/08/13/38067409.html" rel="next" title="Spring Boot (六)Servlet、Filter、Listener配置">
+                <i class="fa fa-chevron-left"></i> Spring Boot (六)Servlet、Filter、Listener配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/3/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -706,6 +478,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -996,6 +772,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
